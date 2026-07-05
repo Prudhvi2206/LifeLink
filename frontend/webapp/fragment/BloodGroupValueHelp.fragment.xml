@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <SelectDialog id="bloodGroupValueHelp"
+                  title="Select Blood Group"
+                  noDataText="No blood groups found"
+                  confirm="onBloodGroupValueHelpConfirm"
+                  cancel="onBloodGroupValueHelpCancel"
+                  search="onBloodGroupValueHelpSearch"
+                  items="{ path: 'bloodGroups>/bloodGroups' }">
+        <StandardListItem
+            title="{bloodGroups>text}"
+            description="{bloodGroups>key}"
+            icon="sap-icon://heart"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active"/>
+    </SelectDialog>
+
+</core:FragmentDefinition>

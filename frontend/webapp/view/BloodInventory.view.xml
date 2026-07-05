@@ -1,0 +1,105 @@
+<mvc:View
+    controllerName="lifelink.controller.BloodInventory"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page id="inventoryPage" title="{i18n>inventoryTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <headerContent>
+            <Button icon="sap-icon://refresh" press="onRefresh" tooltip="{i18n>btnRefresh}"/>
+        </headerContent>
+
+        <subHeader>
+            <Toolbar>
+                <SearchField id="inventorySearch" placeholder="{i18n>inventorySearch}" liveChange="onSearch" width="35%"/>
+                <ToolbarSpacer/>
+                <Select id="filterInvBloodGroup" change="onFilterBloodGroup" selectedKey="ALL">
+                    <core:Item key="ALL" text="All Blood Groups"/>
+                    <core:Item key="A+" text="A+"/>
+                    <core:Item key="A-" text="A-"/>
+                    <core:Item key="B+" text="B+"/>
+                    <core:Item key="B-" text="B-"/>
+                    <core:Item key="AB+" text="AB+"/>
+                    <core:Item key="AB-" text="AB-"/>
+                    <core:Item key="O+" text="O+"/>
+                    <core:Item key="O-" text="O-"/>
+                </Select>
+                <Select id="filterHospital" change="onFilterHospital" selectedKey="ALL">
+                    <core:Item key="ALL" text="All Hospitals"/>
+                </Select>
+                <Select id="filterInvStatus" change="onFilterStatus" selectedKey="ALL">
+                    <core:Item key="ALL" text="All Status"/>
+                    <core:Item key="Available" text="Available"/>
+                    <core:Item key="Expiring" text="Expiring Soon"/>
+                    <core:Item key="Expired" text="Expired"/>
+                </Select>
+                <ToolbarSeparator/>
+                <Button text="{i18n>inventoryAdd}" icon="sap-icon://add" type="Emphasized" press="onAddInventory"/>
+            </Toolbar>
+        </subHeader>
+
+        <content>
+            <!-- Expiry Alert Banner -->
+            <MessageStrip id="expiryAlert" text="⚠ 3 blood units are expiring within the next 7 days!" type="Warning"
+                          showIcon="true" showCloseButton="true" class="sapUiSmallMarginBottom sapUiSmallMarginBeginEnd"/>
+
+            <Table id="inventoryTable"
+                   items="{/BloodInventorySet}"
+                   growing="true"
+                   growingThreshold="20"
+                   class="llTable"
+                   mode="SingleSelectMaster"
+                   sticky="ColumnHeaders,HeaderToolbar">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Blood Units Inventory" level="H4"/>
+                        <ToolbarSpacer/>
+                        <OverflowToolbarButton icon="sap-icon://edit" text="{i18n>inventoryUpdate}" press="onUpdateInventory"/>
+                        <OverflowToolbarButton icon="sap-icon://delete" text="{i18n>inventoryDelete}" press="onDeleteInventory" type="Reject"/>
+                        <OverflowToolbarButton icon="sap-icon://excel-attachment" text="{i18n>btnExport}" press="onExport"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column width="8%"><Text text="{i18n>inventoryId}"/></Column>
+                    <Column width="10%"><Text text="{i18n>inventoryBloodGroup}"/></Column>
+                    <Column width="10%"><Text text="{i18n>inventoryUnits}"/></Column>
+                    <Column width="18%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>inventoryHospital}"/></Column>
+                    <Column width="12%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>inventoryCollectionDate}"/></Column>
+                    <Column width="12%"><Text text="{i18n>inventoryExpiryDate}"/></Column>
+                    <Column width="14%" minScreenWidth="Desktop" demandPopin="true"><Text text="{i18n>inventoryStorageLocation}"/></Column>
+                    <Column width="8%"><Text text="Expiry"/></Column>
+                    <Column width="8%"><Text text="{i18n>inventoryStatus}"/></Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem highlight="{ path: 'ExpiryDate', formatter: '.formatter.formatExpiryState' }">
+                        <Text text="{InventoryId}"/>
+                        <ObjectStatus text="{BloodGroup}" state="Success" icon="sap-icon://heart"/>
+                        <ObjectNumber number="{Units}" unit="units"
+                                      state="{ path: 'Units', formatter: '.formatter.formatStockState' }"/>
+                        <Text text="{HospitalName}"/>
+                        <Text text="{ path: 'CollectionDate', formatter: '.formatter.formatDate' }"/>
+                        <Text text="{ path: 'ExpiryDate', formatter: '.formatter.formatDate' }"/>
+                        <Text text="{StorageLocation}"/>
+                        <ObjectStatus
+                            text="{ path: 'ExpiryDate', formatter: '.formatter.formatExpiryText' }"
+                            state="{ path: 'ExpiryDate', formatter: '.formatter.formatExpiryState' }"/>
+                        <ObjectStatus text="{Status}"
+                            state="{= ${Status} === 'Available' ? 'Success' : (${Status} === 'Expiring' ? 'Warning' : 'Error') }"/>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Label text="Total Blood Units: "/>
+                <ObjectNumber id="totalUnits" number="{viewModel>/totalUnits}" emphasized="true"/>
+            </Toolbar>
+        </footer>
+    </Page>
+
+</mvc:View>

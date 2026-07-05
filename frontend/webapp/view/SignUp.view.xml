@@ -1,0 +1,98 @@
+<mvc:View
+    controllerName="lifelink.controller.SignUp"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page id="signUpPage" showHeader="false" enableScrolling="true" class="llPublicPage llAuthPage">
+        <content>
+            <!-- Back to Home Floating Button -->
+            <Button
+                icon="sap-icon://nav-back"
+                text="Back to Home"
+                press="onNavToHome"
+                class="llFloatingBackBtn"
+                type="Transparent"/>
+
+            <VBox class="llAuthContainer" alignItems="Center" justifyContent="Center">
+                <VBox class="llAuthCard llAnimateIn llRegisterCard">
+                    <!-- Brand Header -->
+                    <VBox class="llAuthHeader" alignItems="Center">
+                        <core:Icon src="sap-icon://add-contact" size="3rem" color="#B71C1C" class="sapUiSmallMarginBottom"/>
+                        <Title text="Join the LifeLink Network" level="H2" class="llTextBold"/>
+                        <Text text="Register as a voluntary donor or medical partner" class="sapUiTinyMarginTop"/>
+                    </VBox>
+
+                    <!-- Form Fields -->
+                    <VBox class="llAuthForm sapUiMediumMarginTop" width="100%">
+                        <HBox gap="1rem" width="100%" wrap="Wrap">
+                            <VBox width="48%">
+                                <Label text="Full Name" class="llAuthLabel" required="true" labelFor="nameInput"/>
+                                <Input id="nameInput" placeholder="John Doe" class="llAuthInput sapUiSmallMarginBottom"/>
+                            </VBox>
+                            <VBox width="48%">
+                                <Label text="Email Address" class="llAuthLabel" required="true" labelFor="emailInput"/>
+                                <Input id="emailInput" type="Email" placeholder="john@example.com" class="llAuthInput sapUiSmallMarginBottom"/>
+                            </VBox>
+                        </HBox>
+
+                        <HBox gap="1rem" width="100%" wrap="Wrap">
+                            <VBox width="48%">
+                                <Label text="Password" class="llAuthLabel" required="true" labelFor="passwordInput"/>
+                                <Input id="passwordInput" type="Password" placeholder="••••••••" class="llAuthInput sapUiSmallMarginBottom"/>
+                            </VBox>
+                            <VBox width="48%">
+                                <Label text="Mobile Number" class="llAuthLabel" required="true" labelFor="phoneInput"/>
+                                <Input id="phoneInput" type="Tel" placeholder="+1 (555) 019-2834" class="llAuthInput sapUiSmallMarginBottom"/>
+                            </VBox>
+                        </HBox>
+
+                        <HBox gap="1rem" width="100%" wrap="Wrap">
+                            <VBox width="48%">
+                                <Label text="Blood Group" class="llAuthLabel" required="true" labelFor="bloodSelect"/>
+                                <Select id="bloodSelect" width="100%" class="llAuthSelect sapUiSmallMarginBottom">
+                                    <items>
+                                        <core:Item key="A+" text="A+"/>
+                                        <core:Item key="A-" text="A-"/>
+                                        <core:Item key="B+" text="B+"/>
+                                        <core:Item key="B-" text="B-"/>
+                                        <core:Item key="AB+" text="AB+"/>
+                                        <core:Item key="AB-" text="AB-"/>
+                                        <core:Item key="O+" text="O+"/>
+                                        <core:Item key="O-" text="O-"/>
+                                    </items>
+                                </Select>
+                            </VBox>
+                            <VBox width="48%">
+                                <Label text="City" class="llAuthLabel" required="true" labelFor="cityInput"/>
+                                <Input id="cityInput" placeholder="New York" class="llAuthInput sapUiSmallMarginBottom"/>
+                            </VBox>
+                        </HBox>
+
+                        <Label text="Register As" class="llAuthLabel" required="true"/>
+                        <SegmentedButton id="roleSelect" width="100%" class="llAuthSegmented sapUiMediumMarginBottom" selectedKey="donor">
+                            <items>
+                                <SegmentedButtonItem key="donor" text="Voluntary Donor" icon="sap-icon://employee"/>
+                                <SegmentedButtonItem key="hospital" text="Hospital / Blood Bank" icon="sap-icon://official-service"/>
+                            </items>
+                        </SegmentedButton>
+
+                        <Button
+                            text="Register"
+                            type="Reject"
+                            press="onSignUp"
+                            class="llBtnLarge llBtnFullWidth sapUiMediumMarginTop"/>
+                    </VBox>
+
+                    <!-- Footer Link -->
+                    <VBox class="llAuthFooter sapUiMediumMarginTop" alignItems="Center">
+                        <HBox gap="0.25rem">
+                            <Text text="Already have an account?"/>
+                            <Link text="Sign In" press="onNavToSignIn" class="llTextBold llTextPrimary"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

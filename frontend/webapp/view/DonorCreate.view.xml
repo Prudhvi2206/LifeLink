@@ -1,0 +1,119 @@
+<mvc:View
+    controllerName="lifelink.controller.DonorCreate"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+
+    <Page id="donorCreatePage" title="{i18n>donorAddTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="llForm sapUiResponsiveMargin">
+                <MessageStrip id="formMessage" text="" type="Error" showIcon="true" visible="false" class="sapUiSmallMarginBottom"/>
+
+                <form:SimpleForm id="donorForm"
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+                    emptySpanXL="4" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+                    columnsXL="1" columnsL="1" columnsM="1" columnsS="1"
+                    class="editableForm">
+
+                    <!-- Personal Information -->
+                    <form:toolbar>
+                        <Toolbar>
+                            <Title text="{i18n>donorPersonalInfo}" level="H4"/>
+                        </Toolbar>
+                    </form:toolbar>
+
+                    <Label text="{i18n>donorFirstName}" required="true"/>
+                    <Input id="inputFirstName" value="{newDonor>/FirstName}" placeholder="Enter first name" maxLength="40"/>
+
+                    <Label text="{i18n>donorLastName}" required="true"/>
+                    <Input id="inputLastName" value="{newDonor>/LastName}" placeholder="Enter last name" maxLength="40"/>
+
+                    <Label text="{i18n>donorBloodGroup}" required="true"/>
+                    <Select id="selectBloodGroup" selectedKey="{newDonor>/BloodGroup}" forceSelection="false">
+                        <core:Item key="" text="-- Select Blood Group --"/>
+                        <core:Item key="A+" text="A Positive (A+)"/>
+                        <core:Item key="A-" text="A Negative (A-)"/>
+                        <core:Item key="B+" text="B Positive (B+)"/>
+                        <core:Item key="B-" text="B Negative (B-)"/>
+                        <core:Item key="AB+" text="AB Positive (AB+)"/>
+                        <core:Item key="AB-" text="AB Negative (AB-)"/>
+                        <core:Item key="O+" text="O Positive (O+)"/>
+                        <core:Item key="O-" text="O Negative (O-)"/>
+                    </Select>
+
+                    <Label text="{i18n>donorDOB}" required="true"/>
+                    <DatePicker id="dpDateOfBirth" value="{newDonor>/DateOfBirth}" displayFormat="dd/MM/yyyy" placeholder="DD/MM/YYYY"/>
+
+                    <Label text="{i18n>donorGender}" required="true"/>
+                    <Select id="selectGender" selectedKey="{newDonor>/Gender}" forceSelection="false">
+                        <core:Item key="" text="-- Select Gender --"/>
+                        <core:Item key="M" text="Male"/>
+                        <core:Item key="F" text="Female"/>
+                        <core:Item key="O" text="Other"/>
+                    </Select>
+
+                    <Label text="{i18n>donorWeight}" required="true"/>
+                    <Input id="inputWeight" value="{newDonor>/Weight}" type="Number" placeholder="Weight in kg"/>
+
+                    <!-- Contact Information -->
+                    <form:toolbar>
+                        <Toolbar>
+                            <Title text="{i18n>donorContactInfo}" level="H4"/>
+                        </Toolbar>
+                    </form:toolbar>
+
+                    <Label text="{i18n>donorPhone}" required="true"/>
+                    <Input id="inputPhone" value="{newDonor>/Phone}" type="Tel" placeholder="10-digit phone number" maxLength="15"/>
+
+                    <Label text="{i18n>donorEmail}"/>
+                    <Input id="inputEmail" value="{newDonor>/Email}" type="Email" placeholder="email@example.com" maxLength="100"/>
+
+                    <!-- Address Information -->
+                    <form:toolbar>
+                        <Toolbar>
+                            <Title text="{i18n>donorAddressInfo}" level="H4"/>
+                        </Toolbar>
+                    </form:toolbar>
+
+                    <Label text="{i18n>donorStreet}"/>
+                    <Input id="inputStreet" value="{newDonor>/Street}" placeholder="Street address" maxLength="60"/>
+
+                    <Label text="{i18n>donorCity}" required="true"/>
+                    <Input id="inputCity" value="{newDonor>/City}" placeholder="City" maxLength="40"/>
+
+                    <Label text="{i18n>donorState}" required="true"/>
+                    <Input id="inputState" value="{newDonor>/State}" placeholder="State" maxLength="40"/>
+
+                    <Label text="{i18n>donorPinCode}"/>
+                    <Input id="inputPinCode" value="{newDonor>/PinCode}" placeholder="6-digit PIN code" maxLength="6"/>
+
+                    <!-- Medical Information -->
+                    <form:toolbar>
+                        <Toolbar>
+                            <Title text="{i18n>donorMedicalInfo}" level="H4"/>
+                        </Toolbar>
+                    </form:toolbar>
+
+                    <Label text="{i18n>donorLastDonation}"/>
+                    <DatePicker id="dpLastDonation" value="{newDonor>/LastDonationDate}" displayFormat="dd/MM/yyyy" placeholder="DD/MM/YYYY (if applicable)"/>
+
+                    <Label text="{i18n>donorMedicalNotes}"/>
+                    <TextArea id="taMedicalNotes" value="{newDonor>/MedicalNotes}" rows="3" placeholder="Any medical conditions or notes" maxLength="255"/>
+
+                </form:SimpleForm>
+            </VBox>
+        </content>
+
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Button id="btnSaveDonor" text="{i18n>donorSave}" type="Emphasized" icon="sap-icon://save" press="onSaveDonor"/>
+                <Button id="btnCancelDonor" text="{i18n>donorCancel}" press="onNavBack"/>
+            </Toolbar>
+        </footer>
+    </Page>
+
+</mvc:View>

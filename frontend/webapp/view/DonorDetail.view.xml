@@ -1,0 +1,181 @@
+<mvc:View
+    controllerName="lifelink.controller.DonorDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:uxap="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+
+    <uxap:ObjectPageLayout id="donorDetailPage" showTitleInHeaderContent="true"
+                           upperCaseAnchorBar="false" enableLazyLoading="true">
+
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:heading>
+                    <Title text="{ parts: ['FirstName', 'LastName'], formatter: '.formatter.formatFullName' }" level="H2"/>
+                </uxap:heading>
+                <uxap:snappedHeading>
+                    <Title text="{ parts: ['FirstName', 'LastName'], formatter: '.formatter.formatFullName' }" level="H3"/>
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="{DonorId} • {BloodGroup}"/>
+                </uxap:expandedContent>
+                <uxap:snappedContent>
+                    <ObjectStatus text="{BloodGroup}" state="Success" icon="sap-icon://heart"/>
+                </uxap:snappedContent>
+                <uxap:actions>
+                    <Button text="{i18n>donorEdit}" icon="sap-icon://edit" type="Emphasized" press="onEditDonor"/>
+                    <Button text="{i18n>donorDelete}" icon="sap-icon://delete" type="Reject" press="onDeleteDonor"/>
+                    <Button text="{i18n>donorCheckEligibility}" icon="sap-icon://stethoscope" press="onCheckEligibility"/>
+                    <Button text="{i18n>btnBack}" icon="sap-icon://nav-back" press="onNavBack"/>
+                </uxap:actions>
+                <uxap:navigationActions>
+                    <Button icon="sap-icon://full-screen" press="onToggleFullScreen"/>
+                </uxap:navigationActions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <HBox wrap="Wrap" class="sapUiSmallMargin">
+                <VBox class="sapUiMediumMarginEnd">
+                    <ObjectAttribute title="{i18n>donorBloodGroup}" text="{BloodGroup}"/>
+                    <ObjectAttribute title="{i18n>donorGender}" text="{ path: 'Gender', formatter: '.formatter.formatGender' }"/>
+                    <ObjectAttribute title="{i18n>donorDOB}" text="{ path: 'DateOfBirth', formatter: '.formatter.formatDate' }"/>
+                </VBox>
+                <VBox class="sapUiMediumMarginEnd">
+                    <ObjectAttribute title="{i18n>donorPhone}" text="{Phone}"/>
+                    <ObjectAttribute title="{i18n>donorEmail}" text="{Email}" active="true"/>
+                    <ObjectAttribute title="{i18n>donorCity}" text="{City}, {State}"/>
+                </VBox>
+                <VBox>
+                    <ObjectStatus title="{i18n>donorStatus}" text="{Status}"
+                                  state="{ path: 'Status', formatter: '.formatter.formatDonorStatusState' }"/>
+                    <ObjectStatus title="{i18n>donorEligibility}"
+                                  text="{ path: 'LastDonationDate', formatter: '.formatter.formatEligibilityText' }"
+                                  state="{= ${LastDonationDate} ? 'Success' : 'Success' }"/>
+                    <ObjectAttribute title="{i18n>donorWeight}" text="{Weight} kg"/>
+                </VBox>
+            </HBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <!-- Personal Information -->
+            <uxap:ObjectPageSection title="{i18n>donorPersonalInfo}" id="sectionPersonal">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <form:SimpleForm id="personalInfoForm" editable="false" layout="ResponsiveGridLayout"
+                                             labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                                             emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+                                             columnsXL="2" columnsL="2" columnsM="1" columnsS="1">
+                                <form:title>
+                                    <core:Title text="{i18n>donorPersonalInfo}"/>
+                                </form:title>
+                                <Label text="{i18n>donorId}"/>
+                                <Text text="{DonorId}"/>
+                                <Label text="{i18n>donorFirstName}"/>
+                                <Text text="{FirstName}"/>
+                                <Label text="{i18n>donorLastName}"/>
+                                <Text text="{LastName}"/>
+                                <Label text="{i18n>donorDOB}"/>
+                                <Text text="{ path: 'DateOfBirth', formatter: '.formatter.formatDate' }"/>
+                                <Label text="{i18n>donorGender}"/>
+                                <Text text="{ path: 'Gender', formatter: '.formatter.formatGender' }"/>
+                                <Label text="{i18n>donorBloodGroup}"/>
+                                <ObjectStatus text="{BloodGroup}" state="Success" icon="sap-icon://heart"/>
+                                <Label text="{i18n>donorWeight}"/>
+                                <Text text="{Weight} kg"/>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Contact Information -->
+            <uxap:ObjectPageSection title="{i18n>donorContactInfo}" id="sectionContact">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <form:SimpleForm id="contactInfoForm" editable="false" layout="ResponsiveGridLayout"
+                                             labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                                             columnsXL="2" columnsL="2" columnsM="1" columnsS="1">
+                                <form:title>
+                                    <core:Title text="{i18n>donorContactInfo}"/>
+                                </form:title>
+                                <Label text="{i18n>donorPhone}"/>
+                                <Text text="{Phone}"/>
+                                <Label text="{i18n>donorEmail}"/>
+                                <Text text="{Email}"/>
+                                <Label text="{i18n>donorStreet}"/>
+                                <Text text="{Street}"/>
+                                <Label text="{i18n>donorCity}"/>
+                                <Text text="{City}"/>
+                                <Label text="{i18n>donorState}"/>
+                                <Text text="{State}"/>
+                                <Label text="{i18n>donorPinCode}"/>
+                                <Text text="{PinCode}"/>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Medical Information -->
+            <uxap:ObjectPageSection title="{i18n>donorMedicalInfo}" id="sectionMedical">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <form:SimpleForm id="medicalInfoForm" editable="false" layout="ResponsiveGridLayout"
+                                             labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                                             columnsXL="2" columnsL="2" columnsM="1" columnsS="1">
+                                <Label text="{i18n>donorLastDonation}"/>
+                                <Text text="{ path: 'LastDonationDate', formatter: '.formatter.formatDate' }"/>
+                                <Label text="{i18n>donorEligibility}"/>
+                                <ObjectStatus
+                                    text="{ path: 'LastDonationDate', formatter: '.formatter.formatEligibilityText' }"/>
+                                <Label text="{i18n>donorMedicalNotes}"/>
+                                <Text text="{MedicalNotes}"/>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Donation History -->
+            <uxap:ObjectPageSection title="{i18n>donorDonationHistory}" id="sectionHistory">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <Table id="donorHistoryTable" items="{Donations}" growing="true" growingThreshold="10" class="llTable">
+                                <headerToolbar>
+                                    <Toolbar>
+                                        <Title text="{i18n>donorDonationHistory}" level="H5"/>
+                                    </Toolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column><Text text="{i18n>historyId}"/></Column>
+                                    <Column><Text text="{i18n>historyDate}"/></Column>
+                                    <Column><Text text="{i18n>historyBloodGroup}"/></Column>
+                                    <Column><Text text="{i18n>historyHospital}"/></Column>
+                                    <Column><Text text="{i18n>historyUnits}"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <Text text="{DonationId}"/>
+                                        <Text text="{ path: 'DonationDate', formatter: '.formatter.formatDate' }"/>
+                                        <ObjectStatus text="{BloodGroup}" state="Success" icon="sap-icon://heart"/>
+                                        <Text text="{HospitalName}"/>
+                                        <ObjectNumber number="{Units}" unit="unit(s)"/>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+
+    </uxap:ObjectPageLayout>
+
+</mvc:View>

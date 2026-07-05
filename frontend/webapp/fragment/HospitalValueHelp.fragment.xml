@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <SelectDialog id="hospitalValueHelp"
+                  title="Select Hospital"
+                  noDataText="No hospitals found"
+                  confirm="onHospitalValueHelpConfirm"
+                  cancel="onHospitalValueHelpCancel"
+                  search="onHospitalValueHelpSearch"
+                  items="{ path: '/HospitalSet' }">
+        <StandardListItem
+            title="{Name}"
+            description="{City}, {State}"
+            info="{Type}"
+            icon="sap-icon://hospital"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active"/>
+    </SelectDialog>
+
+</core:FragmentDefinition>

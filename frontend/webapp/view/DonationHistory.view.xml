@@ -1,0 +1,82 @@
+<mvc:View
+    controllerName="lifelink.controller.DonationHistory"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page id="historyPage" title="{i18n>historyTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <headerContent>
+            <Button icon="sap-icon://refresh" press="onRefresh" tooltip="{i18n>btnRefresh}"/>
+            <Button icon="sap-icon://excel-attachment" text="{i18n>btnExport}" press="onExport" type="Transparent"/>
+        </headerContent>
+
+        <subHeader>
+            <Toolbar>
+                <SearchField id="historySearch" placeholder="{i18n>historySearch}" liveChange="onSearch" width="30%"/>
+                <ToolbarSpacer/>
+                <Label text="From:"/>
+                <DatePicker id="dpDateFrom" placeholder="Start Date" change="onDateFilter" width="150px"/>
+                <Label text="To:" class="sapUiSmallMarginBegin"/>
+                <DatePicker id="dpDateTo" placeholder="End Date" change="onDateFilter" width="150px"/>
+                <ToolbarSeparator/>
+                <Select id="filterHistBloodGroup" change="onFilterBloodGroup" selectedKey="ALL">
+                    <core:Item key="ALL" text="All Blood Groups"/>
+                    <core:Item key="A+" text="A+"/>
+                    <core:Item key="A-" text="A-"/>
+                    <core:Item key="B+" text="B+"/>
+                    <core:Item key="B-" text="B-"/>
+                    <core:Item key="AB+" text="AB+"/>
+                    <core:Item key="AB-" text="AB-"/>
+                    <core:Item key="O+" text="O+"/>
+                    <core:Item key="O-" text="O-"/>
+                </Select>
+            </Toolbar>
+        </subHeader>
+
+        <content>
+            <Table id="historyTable"
+                   items="{/DonationHistorySet}"
+                   growing="true"
+                   growingThreshold="20"
+                   growingScrollToLoad="true"
+                   class="llTable"
+                   mode="None"
+                   sticky="ColumnHeaders,HeaderToolbar">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="{i18n>historyTimeline}" level="H4"/>
+                        <ToolbarSpacer/>
+                        <Label text="Total Donations: "/>
+                        <ObjectNumber id="donationCount" number="{viewModel>/donationCount}" emphasized="true"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column width="8%"><Text text="{i18n>historyId}"/></Column>
+                    <Column width="15%"><Text text="{i18n>historyDonor}"/></Column>
+                    <Column width="10%"><Text text="{i18n>historyBloodGroup}"/></Column>
+                    <Column width="12%"><Text text="{i18n>historyDate}"/></Column>
+                    <Column width="20%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>historyHospital}"/></Column>
+                    <Column width="10%"><Text text="{i18n>historyUnits}"/></Column>
+                    <Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="Time Ago"/></Column>
+                    <Column width="15%" minScreenWidth="Desktop" demandPopin="true"><Text text="{i18n>historyNotes}"/></Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem>
+                        <Text text="{DonationId}"/>
+                        <ObjectIdentifier title="{DonorName}" text="{DonorId}"/>
+                        <ObjectStatus text="{BloodGroup}" state="Success" icon="sap-icon://heart"/>
+                        <Text text="{ path: 'DonationDate', formatter: '.formatter.formatDate' }"/>
+                        <Text text="{HospitalName}"/>
+                        <ObjectNumber number="{Units}" unit="unit(s)"/>
+                        <Text text="{ path: 'DonationDate', formatter: '.formatter.formatRelativeDate' }"/>
+                        <Text text="{Notes}"/>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+
+</mvc:View>

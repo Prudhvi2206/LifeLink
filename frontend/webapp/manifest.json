@@ -1,0 +1,230 @@
+{
+    "_version": "1.42.0",
+    "sap.app": {
+        "id": "lifelink",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZLL_ODATA_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://heart",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "lifelink.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "appView"
+        },
+        "dependencies": {
+            "minUI5Version": "1.120.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ui.layout": {},
+                "sap.f": {},
+                "sap.tnt": {},
+                "sap.uxap": {},
+                "sap.viz": {},
+                "sap.ui.table": {},
+                "sap.ui.unified": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "lifelink.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "useBatch": false
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "lifelink.view",
+                "controlId": "appNavContainer",
+                "controlAggregation": "pages",
+                "async": true,
+                "transition": "slide"
+            },
+            "routes": [
+                {
+                    "name": "home",
+                    "pattern": "",
+                    "target": "home"
+                },
+                {
+                    "name": "signin",
+                    "pattern": "login",
+                    "target": "signin"
+                },
+                {
+                    "name": "signup",
+                    "pattern": "register",
+                    "target": "signup"
+                },
+                {
+                    "name": "dashboard",
+                    "pattern": "dashboard",
+                    "target": "dashboard"
+                },
+                {
+                    "name": "donorList",
+                    "pattern": "donors",
+                    "target": "donorList"
+                },
+                {
+                    "name": "donorDetail",
+                    "pattern": "donors/{donorId}",
+                    "target": "donorDetail"
+                },
+                {
+                    "name": "donorCreate",
+                    "pattern": "donors/create",
+                    "target": "donorCreate"
+                },
+                {
+                    "name": "bloodInventory",
+                    "pattern": "inventory",
+                    "target": "bloodInventory"
+                },
+                {
+                    "name": "emergencyRequests",
+                    "pattern": "requests",
+                    "target": "emergencyRequests"
+                },
+                {
+                    "name": "emergencyRequestCreate",
+                    "pattern": "requests/create",
+                    "target": "emergencyRequestCreate"
+                },
+                {
+                    "name": "donationHistory",
+                    "pattern": "history",
+                    "target": "donationHistory"
+                },
+                {
+                    "name": "reports",
+                    "pattern": "reports",
+                    "target": "reports"
+                },
+                {
+                    "name": "bloodSearch",
+                    "pattern": "search",
+                    "target": "bloodSearch"
+                },
+                {
+                    "name": "smartFormDownload",
+                    "pattern": "smartforms",
+                    "target": "smartFormDownload"
+                }
+            ],
+            "targets": {
+                "home": {
+                    "viewName": "Home",
+                    "viewLevel": 1
+                },
+                "signin": {
+                    "viewName": "SignIn",
+                    "viewLevel": 1
+                },
+                "signup": {
+                    "viewName": "SignUp",
+                    "viewLevel": 1
+                },
+                "dashboard": {
+                    "viewName": "Dashboard",
+                    "viewLevel": 1
+                },
+                "donorList": {
+                    "viewName": "DonorList",
+                    "viewLevel": 2
+                },
+                "donorDetail": {
+                    "viewName": "DonorDetail",
+                    "viewLevel": 3
+                },
+                "donorCreate": {
+                    "viewName": "DonorCreate",
+                    "viewLevel": 3
+                },
+                "bloodInventory": {
+                    "viewName": "BloodInventory",
+                    "viewLevel": 2
+                },
+                "emergencyRequests": {
+                    "viewName": "EmergencyRequests",
+                    "viewLevel": 2
+                },
+                "emergencyRequestCreate": {
+                    "viewName": "EmergencyRequestCreate",
+                    "viewLevel": 3
+                },
+                "donationHistory": {
+                    "viewName": "DonationHistory",
+                    "viewLevel": 2
+                },
+                "reports": {
+                    "viewName": "Reports",
+                    "viewLevel": 2
+                },
+                "bloodSearch": {
+                    "viewName": "BloodSearch",
+                    "viewLevel": 2
+                },
+                "smartFormDownload": {
+                    "viewName": "SmartFormDownload",
+                    "viewLevel": 2
+                }
+            }
+        }
+    }
+}

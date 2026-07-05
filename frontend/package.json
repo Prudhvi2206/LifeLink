@@ -1,0 +1,14 @@
+{
+  "name": "lifelink",
+  "version": "1.0.0",
+  "description": "LifeLink – Blood Donation & Emergency Request System (SAPUI5 Frontend)",
+  "private": true,
+  "scripts": {
+    "start": "ui5 serve --open index.html",
+    "build": "ui5 build --clean-dest",
+    "lint": "eslint webapp"
+  },
+  "devDependencies": {
+    "@ui5/cli": "^3.0.0"
+  }
+}

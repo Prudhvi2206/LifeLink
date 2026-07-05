@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+           xmlns:sap="http://www.sap.com/Protocols/SAPData">
+  <edmx:DataServices m:DataServiceVersion="2.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="ZLL_ODATA_SRV" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+      <!-- ========== Entity Types ========== -->
+
+      <EntityType Name="Donor" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="DonorId"/>
+        </Key>
+        <Property Name="DonorId" Type="Edm.String" MaxLength="10" Nullable="false" sap:label="Donor ID"/>
+        <Property Name="FirstName" Type="Edm.String" MaxLength="40" sap:label="First Name"/>
+        <Property Name="LastName" Type="Edm.String" MaxLength="40" sap:label="Last Name"/>
+        <Property Name="BloodGroup" Type="Edm.String" MaxLength="3" sap:label="Blood Group"/>
+        <Property Name="DateOfBirth" Type="Edm.DateTime" sap:display-format="Date" sap:label="Date of Birth"/>
+        <Property Name="Gender" Type="Edm.String" MaxLength="1" sap:label="Gender"/>
+        <Property Name="Phone" Type="Edm.String" MaxLength="15" sap:label="Phone"/>
+        <Property Name="Email" Type="Edm.String" MaxLength="100" sap:label="Email"/>
+        <Property Name="Street" Type="Edm.String" MaxLength="60" sap:label="Street"/>
+        <Property Name="City" Type="Edm.String" MaxLength="40" sap:label="City"/>
+        <Property Name="State" Type="Edm.String" MaxLength="40" sap:label="State"/>
+        <Property Name="PinCode" Type="Edm.String" MaxLength="6" sap:label="PIN Code"/>
+        <Property Name="Weight" Type="Edm.Decimal" Precision="5" Scale="2" sap:label="Weight (kg)"/>
+        <Property Name="LastDonationDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Last Donation"/>
+        <Property Name="Status" Type="Edm.String" MaxLength="10" sap:label="Status"/>
+        <Property Name="MedicalNotes" Type="Edm.String" MaxLength="255" sap:label="Medical Notes"/>
+        <Property Name="CreatedOn" Type="Edm.DateTime" sap:display-format="Date" sap:label="Created On"/>
+        <Property Name="ChangedOn" Type="Edm.DateTime" sap:display-format="Date" sap:label="Changed On"/>
+        <NavigationProperty Name="Donations" Relationship="ZLL_ODATA_SRV.DonorToDonation" FromRole="DonorRole" ToRole="DonationRole"/>
+      </EntityType>
+
+      <EntityType Name="BloodInventory" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="InventoryId"/>
+        </Key>
+        <Property Name="InventoryId" Type="Edm.String" MaxLength="10" Nullable="false" sap:label="Inventory ID"/>
+        <Property Name="BloodGroup" Type="Edm.String" MaxLength="3" sap:label="Blood Group"/>
+        <Property Name="Units" Type="Edm.Int32" sap:label="Units Available"/>
+        <Property Name="HospitalId" Type="Edm.String" MaxLength="10" sap:label="Hospital ID"/>
+        <Property Name="HospitalName" Type="Edm.String" MaxLength="100" sap:label="Hospital Name"/>
+        <Property Name="CollectionDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Collection Date"/>
+        <Property Name="ExpiryDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Expiry Date"/>
+        <Property Name="StorageLocation" Type="Edm.String" MaxLength="40" sap:label="Storage Location"/>
+        <Property Name="Status" Type="Edm.String" MaxLength="15" sap:label="Status"/>
+        <NavigationProperty Name="Hospital" Relationship="ZLL_ODATA_SRV.InventoryToHospital" FromRole="InventoryRole" ToRole="HospitalRole"/>
+      </EntityType>
+
+      <EntityType Name="EmergencyRequest" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="RequestId"/>
+        </Key>
+        <Property Name="RequestId" Type="Edm.String" MaxLength="10" Nullable="false" sap:label="Request ID"/>
+        <Property Name="HospitalId" Type="Edm.String" MaxLength="10" sap:label="Hospital ID"/>
+        <Property Name="HospitalName" Type="Edm.String" MaxLength="100" sap:label="Hospital Name"/>
+        <Property Name="PatientName" Type="Edm.String" MaxLength="80" sap:label="Patient Name"/>
+        <Property Name="BloodGroup" Type="Edm.String" MaxLength="3" sap:label="Blood Group"/>
+        <Property Name="UnitsNeeded" Type="Edm.Int32" sap:label="Units Needed"/>
+        <Property Name="Urgency" Type="Edm.String" MaxLength="10" sap:label="Urgency"/>
+        <Property Name="ContactPerson" Type="Edm.String" MaxLength="80" sap:label="Contact Person"/>
+        <Property Name="ContactPhone" Type="Edm.String" MaxLength="15" sap:label="Contact Phone"/>
+        <Property Name="Reason" Type="Edm.String" MaxLength="255" sap:label="Reason"/>
+        <Property Name="Status" Type="Edm.String" MaxLength="10" sap:label="Status"/>
+        <Property Name="RequestDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Request Date"/>
+        <Property Name="ApprovedDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Approved Date"/>
+        <Property Name="Notes" Type="Edm.String" MaxLength="255" sap:label="Notes"/>
+        <NavigationProperty Name="Hospital" Relationship="ZLL_ODATA_SRV.RequestToHospital" FromRole="RequestRole" ToRole="HospitalRole"/>
+      </EntityType>
+
+      <EntityType Name="DonationHistory" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="DonationId"/>
+        </Key>
+        <Property Name="DonationId" Type="Edm.String" MaxLength="10" Nullable="false" sap:label="Donation ID"/>
+        <Property Name="DonorId" Type="Edm.String" MaxLength="10" sap:label="Donor ID"/>
+        <Property Name="DonorName" Type="Edm.String" MaxLength="80" sap:label="Donor Name"/>
+        <Property Name="BloodGroup" Type="Edm.String" MaxLength="3" sap:label="Blood Group"/>
+        <Property Name="DonationDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Donation Date"/>
+        <Property Name="HospitalId" Type="Edm.String" MaxLength="10" sap:label="Hospital ID"/>
+        <Property Name="HospitalName" Type="Edm.String" MaxLength="100" sap:label="Hospital Name"/>
+        <Property Name="Units" Type="Edm.Int32" sap:label="Units Donated"/>
+        <Property Name="Notes" Type="Edm.String" MaxLength="255" sap:label="Notes"/>
+        <NavigationProperty Name="Donor" Relationship="ZLL_ODATA_SRV.DonorToDonation" FromRole="DonationRole" ToRole="DonorRole"/>
+      </EntityType>
+
+      <EntityType Name="Hospital" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="HospitalId"/>
+        </Key>
+        <Property Name="HospitalId" Type="Edm.String" MaxLength="10" Nullable="false" sap:label="Hospital ID"/>
+        <Property Name="Name" Type="Edm.String" MaxLength="100" sap:label="Hospital Name"/>
+        <Property Name="City" Type="Edm.String" MaxLength="40" sap:label="City"/>
+        <Property Name="State" Type="Edm.String" MaxLength="40" sap:label="State"/>
+        <Property Name="Address" Type="Edm.String" MaxLength="200" sap:label="Address"/>
+        <Property Name="Phone" Type="Edm.String" MaxLength="15" sap:label="Phone"/>
+        <Property Name="Email" Type="Edm.String" MaxLength="100" sap:label="Email"/>
+        <Property Name="Type" Type="Edm.String" MaxLength="20" sap:label="Type"/>
+      </EntityType>
+
+      <EntityType Name="DashboardStats" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="StatId"/>
+        </Key>
+        <Property Name="StatId" Type="Edm.String" MaxLength="10" Nullable="false"/>
+        <Property Name="TotalDonors" Type="Edm.Int32" sap:label="Total Donors"/>
+        <Property Name="AvailableUnits" Type="Edm.Int32" sap:label="Available Units"/>
+        <Property Name="PendingRequests" Type="Edm.Int32" sap:label="Pending Requests"/>
+        <Property Name="ApprovedRequests" Type="Edm.Int32" sap:label="Approved Requests"/>
+        <Property Name="BloodGroupsAvailable" Type="Edm.Int32" sap:label="Blood Groups"/>
+        <Property Name="ExpiringUnits" Type="Edm.Int32" sap:label="Expiring Units"/>
+        <Property Name="TotalDonationsThisMonth" Type="Edm.Int32" sap:label="Monthly Donations"/>
+        <Property Name="CompletedRequests" Type="Edm.Int32" sap:label="Completed Requests"/>
+      </EntityType>
+
+      <EntityType Name="BloodGroupStat" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="BloodGroup"/>
+        </Key>
+        <Property Name="BloodGroup" Type="Edm.String" MaxLength="3" Nullable="false" sap:label="Blood Group"/>
+        <Property Name="TotalUnits" Type="Edm.Int32" sap:label="Total Units"/>
+        <Property Name="DonorCount" Type="Edm.Int32" sap:label="Donor Count"/>
+      </EntityType>
+
+      <!-- ========== Associations ========== -->
+
+      <Association Name="DonorToDonation">
+        <End Type="ZLL_ODATA_SRV.Donor" Multiplicity="1" Role="DonorRole"/>
+        <End Type="ZLL_ODATA_SRV.DonationHistory" Multiplicity="*" Role="DonationRole"/>
+        <ReferentialConstraint>
+          <Principal Role="DonorRole"><PropertyRef Name="DonorId"/></Principal>
+          <Dependent Role="DonationRole"><PropertyRef Name="DonorId"/></Dependent>
+        </ReferentialConstraint>
+      </Association>
+
+      <Association Name="InventoryToHospital">
+        <End Type="ZLL_ODATA_SRV.BloodInventory" Multiplicity="*" Role="InventoryRole"/>
+        <End Type="ZLL_ODATA_SRV.Hospital" Multiplicity="1" Role="HospitalRole"/>
+        <ReferentialConstraint>
+          <Principal Role="HospitalRole"><PropertyRef Name="HospitalId"/></Principal>
+          <Dependent Role="InventoryRole"><PropertyRef Name="HospitalId"/></Dependent>
+        </ReferentialConstraint>
+      </Association>
+
+      <Association Name="RequestToHospital">
+        <End Type="ZLL_ODATA_SRV.EmergencyRequest" Multiplicity="*" Role="RequestRole"/>
+        <End Type="ZLL_ODATA_SRV.Hospital" Multiplicity="1" Role="HospitalRole"/>
+        <ReferentialConstraint>
+          <Principal Role="HospitalRole"><PropertyRef Name="HospitalId"/></Principal>
+          <Dependent Role="RequestRole"><PropertyRef Name="HospitalId"/></Dependent>
+        </ReferentialConstraint>
+      </Association>
+
+      <!-- ========== Entity Container ========== -->
+
+      <EntityContainer Name="ZLL_ODATA_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+
+        <EntitySet Name="DonorSet" EntityType="ZLL_ODATA_SRV.Donor" sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+        <EntitySet Name="BloodInventorySet" EntityType="ZLL_ODATA_SRV.BloodInventory" sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+        <EntitySet Name="EmergencyRequestSet" EntityType="ZLL_ODATA_SRV.EmergencyRequest" sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+        <EntitySet Name="DonationHistorySet" EntityType="ZLL_ODATA_SRV.DonationHistory" sap:creatable="true" sap:updatable="false" sap:deletable="false"/>
+        <EntitySet Name="HospitalSet" EntityType="ZLL_ODATA_SRV.Hospital" sap:creatable="false" sap:updatable="false" sap:deletable="false"/>
+        <EntitySet Name="DashboardStatsSet" EntityType="ZLL_ODATA_SRV.DashboardStats" sap:creatable="false" sap:updatable="false" sap:deletable="false"/>
+        <EntitySet Name="BloodGroupStatSet" EntityType="ZLL_ODATA_SRV.BloodGroupStat" sap:creatable="false" sap:updatable="false" sap:deletable="false"/>
+
+        <AssociationSet Name="DonorToDonationSet" Association="ZLL_ODATA_SRV.DonorToDonation">
+          <End EntitySet="DonorSet" Role="DonorRole"/>
+          <End EntitySet="DonationHistorySet" Role="DonationRole"/>
+        </AssociationSet>
+
+        <AssociationSet Name="InventoryToHospitalSet" Association="ZLL_ODATA_SRV.InventoryToHospital">
+          <End EntitySet="BloodInventorySet" Role="InventoryRole"/>
+          <End EntitySet="HospitalSet" Role="HospitalRole"/>
+        </AssociationSet>
+
+        <AssociationSet Name="RequestToHospitalSet" Association="ZLL_ODATA_SRV.RequestToHospital">
+          <End EntitySet="EmergencyRequestSet" Role="RequestRole"/>
+          <End EntitySet="HospitalSet" Role="HospitalRole"/>
+        </AssociationSet>
+
+        <!-- Function Imports -->
+        <FunctionImport Name="CheckDonorEligibility" ReturnType="Edm.Boolean" m:HttpMethod="GET">
+          <Parameter Name="DonorId" Type="Edm.String" Mode="In"/>
+        </FunctionImport>
+
+        <FunctionImport Name="ApproveRequest" ReturnType="ZLL_ODATA_SRV.EmergencyRequest" m:HttpMethod="POST">
+          <Parameter Name="RequestId" Type="Edm.String" Mode="In"/>
+        </FunctionImport>
+
+        <FunctionImport Name="RejectRequest" ReturnType="ZLL_ODATA_SRV.EmergencyRequest" m:HttpMethod="POST">
+          <Parameter Name="RequestId" Type="Edm.String" Mode="In"/>
+        </FunctionImport>
+
+        <FunctionImport Name="CompleteRequest" ReturnType="ZLL_ODATA_SRV.EmergencyRequest" m:HttpMethod="POST">
+          <Parameter Name="RequestId" Type="Edm.String" Mode="In"/>
+        </FunctionImport>
+
+        <FunctionImport Name="GenerateDonationCertificate" ReturnType="Edm.Binary" m:HttpMethod="GET">
+          <Parameter Name="DonationId" Type="Edm.String" Mode="In"/>
+        </FunctionImport>
+
+        <FunctionImport Name="GenerateEmergencySlip" ReturnType="Edm.Binary" m:HttpMethod="GET">
+          <Parameter Name="RequestId" Type="Edm.String" Mode="In"/>
+        </FunctionImport>
+
+      </EntityContainer>
+
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

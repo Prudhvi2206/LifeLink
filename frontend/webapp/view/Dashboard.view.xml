@@ -1,0 +1,216 @@
+<mvc:View
+    controllerName="lifelink.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:cards="sap.f.cards"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:mc="sap.suite.ui.microchart">
+
+    <Page id="dashboardPage" showHeader="false" enableScrolling="true" class="sapUiContentPadding">
+        <!-- Header Banner -->
+        <VBox class="llPageHeader">
+            <Title text="{i18n>dashTitle}" level="H2" titleStyle="H2"/>
+            <Text text="Real-time overview of blood bank operations" class="sapUiTinyMarginTop"/>
+        </VBox>
+
+        <VBox class="llDashboardContainer">
+
+            <!-- KPI Cards Row -->
+            <HBox class="llDashGrid" wrap="Wrap">
+                <!-- Total Donors -->
+                <f:Card id="kpiTotalDonors" class="llKpiCard llKpiCardPrimary llAnimateIn" width="100%">
+                    <f:header>
+                        <cards:NumericHeader
+                            title="{i18n>dashTotalDonors}"
+                            number="{dashStats>/TotalDonors}"
+                            subtitle="Registered"
+                            statusText="+3 this month"
+                            state="Good"
+                            icon="sap-icon://group"/>
+                    </f:header>
+                </f:Card>
+
+                <!-- Available Units -->
+                <f:Card id="kpiAvailableUnits" class="llKpiCard llKpiCardSuccess llAnimateIn" width="100%">
+                    <f:header>
+                        <cards:NumericHeader
+                            title="{i18n>dashAvailableUnits}"
+                            number="{dashStats>/AvailableUnits}"
+                            subtitle="Blood Units in Stock"
+                            state="Good"
+                            icon="sap-icon://inventory"/>
+                    </f:header>
+                </f:Card>
+
+                <!-- Pending Requests -->
+                <f:Card id="kpiPendingRequests" class="llKpiCard llKpiCardWarning llAnimateIn" width="100%">
+                    <f:header>
+                        <cards:NumericHeader
+                            title="{i18n>dashPendingRequests}"
+                            number="{dashStats>/PendingRequests}"
+                            subtitle="Awaiting Approval"
+                            state="Critical"
+                            icon="sap-icon://pending"/>
+                    </f:header>
+                </f:Card>
+
+                <!-- Approved Requests -->
+                <f:Card id="kpiApprovedRequests" class="llKpiCard llKpiCardInfo llAnimateIn" width="100%">
+                    <f:header>
+                        <cards:NumericHeader
+                            title="{i18n>dashApprovedRequests}"
+                            number="{dashStats>/ApprovedRequests}"
+                            subtitle="Active Approvals"
+                            state="Good"
+                            icon="sap-icon://accept"/>
+                    </f:header>
+                </f:Card>
+
+                <!-- Blood Groups -->
+                <f:Card id="kpiBloodGroups" class="llKpiCard llKpiCardSuccess llAnimateIn" width="100%">
+                    <f:header>
+                        <cards:NumericHeader
+                            title="{i18n>dashBloodGroups}"
+                            number="{dashStats>/BloodGroupsAvailable}"
+                            subtitle="Groups in Stock"
+                            state="Good"
+                            icon="sap-icon://lab"/>
+                    </f:header>
+                </f:Card>
+
+                <!-- Expiring Soon -->
+                <f:Card id="kpiExpiringUnits" class="llKpiCard llKpiCardError llAnimateIn" width="100%">
+                    <f:header>
+                        <cards:NumericHeader
+                            title="{i18n>dashExpiringUnits}"
+                            number="{dashStats>/ExpiringUnits}"
+                            subtitle="Within 7 Days"
+                            state="Error"
+                            icon="sap-icon://warning2"/>
+                    </f:header>
+                </f:Card>
+            </HBox>
+
+            <!-- Blood Group Distribution Chart -->
+            <HBox class="llDashGridWide" wrap="Wrap">
+                <VBox class="llChartContainer llAnimateIn" width="100%">
+                    <Title text="{i18n>dashBloodDistribution}" level="H4" class="sapUiSmallMarginBottom"/>
+                    <Table id="bloodGroupTable" items="{bloodGroups>/}" class="llTable"
+                           growing="false" mode="None" sticky="ColumnHeaders">
+                        <columns>
+                            <Column width="25%"><Text text="Blood Group"/></Column>
+                            <Column width="35%"><Text text="Total Units"/></Column>
+                            <Column width="20%"><Text text="Donors"/></Column>
+                            <Column width="20%"><Text text="Status"/></Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <HBox alignItems="Center">
+                                    <core:Icon src="sap-icon://heart" color="#B71C1C" class="sapUiSmallMarginEnd"/>
+                                    <ObjectIdentifier title="{bloodGroups>BloodGroup}" titleActive="false"/>
+                                </HBox>
+                                <ProgressIndicator
+                                    percentValue="{ path: 'bloodGroups>TotalUnits', formatter: '.formatter.calcPercentage' }"
+                                    displayValue="{bloodGroups>TotalUnits} units"
+                                    state="{= ${bloodGroups>TotalUnits} > 10 ? 'Success' : (${bloodGroups>TotalUnits} > 5 ? 'Warning' : 'Error') }"/>
+                                <ObjectNumber number="{bloodGroups>DonorCount}" unit="donors"/>
+                                <ObjectStatus
+                                    text="{= ${bloodGroups>TotalUnits} > 10 ? 'Adequate' : (${bloodGroups>TotalUnits} > 5 ? 'Low' : 'Critical') }"
+                                    state="{= ${bloodGroups>TotalUnits} > 10 ? 'Success' : (${bloodGroups>TotalUnits} > 5 ? 'Warning' : 'Error') }"/>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </VBox>
+
+                <!-- Quick Actions -->
+                <VBox class="llChartContainer llAnimateIn" width="100%">
+                    <Title text="{i18n>dashQuickActions}" level="H4" class="sapUiSmallMarginBottom"/>
+                    <HBox justifyContent="SpaceAround" wrap="Wrap" class="sapUiMediumMarginTop">
+                        <VBox class="llQuickAction sapUiSmallMargin" alignItems="Center" press="onNavToDonorCreate">
+                            <core:Icon src="sap-icon://add-employee" size="2.5rem" color="#B71C1C"/>
+                            <Title text="{i18n>dashNewDonor}" level="H5" class="sapUiTinyMarginTop"/>
+                            <Text text="Register a new blood donor"/>
+                            <Button text="{i18n>dashNewDonor}" type="Emphasized" press="onNavToDonorCreate" class="sapUiSmallMarginTop"/>
+                        </VBox>
+                        <VBox class="llQuickAction sapUiSmallMargin" alignItems="Center">
+                            <core:Icon src="sap-icon://alert" size="2.5rem" color="#E65100"/>
+                            <Title text="{i18n>dashNewRequest}" level="H5" class="sapUiTinyMarginTop"/>
+                            <Text text="Submit an emergency blood request"/>
+                            <Button text="{i18n>dashNewRequest}" type="Reject" press="onNavToRequestCreate" class="sapUiSmallMarginTop"/>
+                        </VBox>
+                        <VBox class="llQuickAction sapUiSmallMargin" alignItems="Center">
+                            <core:Icon src="sap-icon://search" size="2.5rem" color="#1565C0"/>
+                            <Title text="{i18n>dashSearchBlood}" level="H5" class="sapUiTinyMarginTop"/>
+                            <Text text="Find available blood units"/>
+                            <Button text="{i18n>dashSearchBlood}" type="Default" press="onNavToSearch" class="sapUiSmallMarginTop"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </HBox>
+
+            <!-- Recent Activity Tables -->
+            <HBox class="llDashGridWide" wrap="Wrap">
+                <!-- Recent Donations -->
+                <VBox class="llChartContainer llAnimateIn" width="100%">
+                    <Toolbar>
+                        <Title text="{i18n>dashRecentDonations}" level="H4"/>
+                        <ToolbarSpacer/>
+                        <Button text="View All" type="Transparent" press="onNavToHistory"/>
+                    </Toolbar>
+                    <Table id="recentDonationsTable" items="{/DonationHistorySet}" growing="true" growingThreshold="5"
+                           class="llTable" mode="None">
+                        <columns>
+                            <Column><Text text="Donor"/></Column>
+                            <Column><Text text="Blood Group"/></Column>
+                            <Column><Text text="Date"/></Column>
+                            <Column><Text text="Hospital"/></Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem type="Navigation" press="onDonationPress">
+                                <ObjectIdentifier title="{DonorName}" text="{DonorId}"/>
+                                <ObjectStatus text="{BloodGroup}" state="Success" icon="sap-icon://heart"/>
+                                <Text text="{ path: 'DonationDate', formatter: '.formatter.formatDate' }"/>
+                                <Text text="{HospitalName}"/>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </VBox>
+
+                <!-- Recent Emergency Requests -->
+                <VBox class="llChartContainer llAnimateIn" width="100%">
+                    <Toolbar>
+                        <Title text="{i18n>dashRecentRequests}" level="H4"/>
+                        <ToolbarSpacer/>
+                        <Button text="View All" type="Transparent" press="onNavToRequests"/>
+                    </Toolbar>
+                    <Table id="recentRequestsTable" items="{/EmergencyRequestSet}" growing="true" growingThreshold="5"
+                           class="llTable" mode="None">
+                        <columns>
+                            <Column><Text text="Request"/></Column>
+                            <Column><Text text="Blood Group"/></Column>
+                            <Column><Text text="Urgency"/></Column>
+                            <Column><Text text="Status"/></Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem type="Navigation" press="onRequestPress">
+                                <ObjectIdentifier title="{PatientName}" text="{RequestId}"/>
+                                <ObjectStatus text="{BloodGroup}" state="Warning" icon="sap-icon://heart"/>
+                                <ObjectStatus
+                                    text="{Urgency}"
+                                    state="{ path: 'Urgency', formatter: '.formatter.formatUrgencyState' }"
+                                    icon="{ path: 'Urgency', formatter: '.formatter.formatStatusIcon' }"/>
+                                <ObjectStatus
+                                    text="{ path: 'Status', formatter: '.formatter.formatStatusText' }"
+                                    state="{ path: 'Status', formatter: '.formatter.formatStatusState' }"/>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </VBox>
+            </HBox>
+
+        </VBox>
+    </Page>
+
+</mvc:View>

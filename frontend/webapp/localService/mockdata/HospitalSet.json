@@ -1,0 +1,8 @@
+[
+  { "HospitalId": "H001", "Name": "Apollo Hospital Mumbai", "City": "Mumbai", "State": "Maharashtra", "Address": "Plot No. 13, Parsik Hill Road, Off Uran Road, CBD Belapur, Mumbai 400614", "Phone": "022-33501000", "Email": "info@apollomumbai.com", "Type": "Multi-Specialty" },
+  { "HospitalId": "H002", "Name": "Fortis Hospital Delhi", "City": "Delhi", "State": "Delhi", "Address": "Shalimar Bagh, Delhi 110088", "Phone": "011-45300000", "Email": "info@fortisdelhi.com", "Type": "Multi-Specialty" },
+  { "HospitalId": "H003", "Name": "AIIMS Bangalore", "City": "Bangalore", "State": "Karnataka", "Address": "Outer Ring Road, Bangalore 560066", "Phone": "080-26995000", "Email": "info@aiimsbangalore.com", "Type": "Government" },
+  { "HospitalId": "H004", "Name": "Medanta Hospital Hyderabad", "City": "Hyderabad", "State": "Telangana", "Address": "Gachibowli, Hyderabad 500032", "Phone": "040-68334455", "Email": "info@medantahyd.com", "Type": "Multi-Specialty" },
+  { "HospitalId": "H005", "Name": "Max Hospital Chennai", "City": "Chennai", "State": "Tamil Nadu", "Address": "No. 1, Anna Nagar, Chennai 600040", "Phone": "044-26281500", "Email": "info@maxchennai.com", "Type": "Multi-Specialty" },
+  { "HospitalId": "H006", "Name": "Narayana Health Jaipur", "City": "Jaipur", "State": "Rajasthan", "Address": "NH-8, Mahapura, Jaipur 302029", "Phone": "0141-7122222", "Email": "info@narayanajaipur.com", "Type": "Super-Specialty" }
+]

@@ -1,0 +1,107 @@
+<mvc:View
+    controllerName="lifelink.controller.BloodSearch"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout">
+
+    <Page id="searchPage" title="{i18n>searchTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiResponsiveMargin">
+                <!-- Search Form -->
+                <VBox class="llSearchForm">
+                    <Title text="{i18n>searchTitle}" level="H3" class="sapUiSmallMarginBottom"/>
+                    <Text text="Find available blood units by blood group, hospital, or city." class="sapUiSmallMarginBottom"/>
+
+                    <form:SimpleForm id="searchForm"
+                        editable="true"
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="2" labelSpanL="2" labelSpanM="3" labelSpanS="12"
+                        emptySpanXL="3" emptySpanL="3" emptySpanM="0" emptySpanS="0"
+                        columnsXL="1" columnsL="1" columnsM="1" columnsS="1">
+
+                        <Label text="{i18n>searchBloodGroup}"/>
+                        <Select id="searchBloodGroup" selectedKey="{searchModel>/bloodGroup}" forceSelection="false">
+                            <core:Item key="" text="-- Any Blood Group --"/>
+                            <core:Item key="A+" text="A Positive (A+)"/>
+                            <core:Item key="A-" text="A Negative (A-)"/>
+                            <core:Item key="B+" text="B Positive (B+)"/>
+                            <core:Item key="B-" text="B Negative (B-)"/>
+                            <core:Item key="AB+" text="AB Positive (AB+)"/>
+                            <core:Item key="AB-" text="AB Negative (AB-)"/>
+                            <core:Item key="O+" text="O Positive (O+)"/>
+                            <core:Item key="O-" text="O Negative (O-)"/>
+                        </Select>
+
+                        <Label text="{i18n>searchHospital}"/>
+                        <Input id="searchHospitalInput" value="{searchModel>/hospital}" placeholder="Hospital name (optional)"/>
+
+                        <Label text="{i18n>searchCity}"/>
+                        <Input id="searchCityInput" value="{searchModel>/city}" placeholder="City name (optional)"/>
+                    </form:SimpleForm>
+
+                    <HBox justifyContent="Center" class="sapUiMediumMarginTop">
+                        <Button text="{i18n>searchButton}" icon="sap-icon://search" type="Emphasized" press="onSearch" class="sapUiSmallMarginEnd"/>
+                        <Button text="Clear" icon="sap-icon://clear-filter" press="onClearSearch"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Search Results -->
+                <VBox id="searchResultsContainer" class="llSearchResults sapUiSmallMarginTop" visible="{searchModel>/hasSearched}">
+                    <Table id="searchResultsTable"
+                           items="{searchModel>/results}"
+                           growing="true"
+                           growingThreshold="20"
+                           class="llTable"
+                           mode="None"
+                           visible="{searchModel>/hasResults}">
+
+                        <headerToolbar>
+                            <Toolbar>
+                                <Title text="{i18n>searchResults}" level="H4"/>
+                                <ToolbarSpacer/>
+                                <Label text="Found: "/>
+                                <ObjectNumber number="{searchModel>/resultCount}" emphasized="true" unit="records"/>
+                            </Toolbar>
+                        </headerToolbar>
+
+                        <columns>
+                            <Column width="10%"><Text text="{i18n>inventoryBloodGroup}"/></Column>
+                            <Column width="10%"><Text text="{i18n>searchAvailableUnits}"/></Column>
+                            <Column width="25%"><Text text="{i18n>inventoryHospital}"/></Column>
+                            <Column width="15%"><Text text="City"/></Column>
+                            <Column width="15%"><Text text="{i18n>searchExpiryDate}"/></Column>
+                            <Column width="10%"><Text text="Freshness"/></Column>
+                            <Column width="15%"><Text text="{i18n>searchStorageLocation}"/></Column>
+                        </columns>
+
+                        <items>
+                            <ColumnListItem highlight="{= ${searchModel>Units} > 10 ? 'Success' : (${searchModel>Units} > 5 ? 'Warning' : 'Error') }">
+                                <ObjectStatus text="{searchModel>BloodGroup}" state="Success" icon="sap-icon://heart"/>
+                                <ObjectNumber number="{searchModel>Units}" unit="units"
+                                              state="{= ${searchModel>Units} > 10 ? 'Success' : (${searchModel>Units} > 5 ? 'Warning' : 'Error') }"
+                                              emphasized="true"/>
+                                <ObjectIdentifier title="{searchModel>HospitalName}" text="{searchModel>HospitalId}"/>
+                                <Text text="{searchModel>City}"/>
+                                <Text text="{ path: 'searchModel>ExpiryDate', formatter: '.formatter.formatDate' }"/>
+                                <ObjectStatus
+                                    text="{ path: 'searchModel>ExpiryDate', formatter: '.formatter.formatExpiryText' }"
+                                    state="{ path: 'searchModel>ExpiryDate', formatter: '.formatter.formatExpiryState' }"/>
+                                <Text text="{searchModel>StorageLocation}"/>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+
+                    <!-- No Results -->
+                    <VBox class="llNoResults" visible="{= !${searchModel>/hasResults} }">
+                        <core:Icon src="sap-icon://drop" size="5rem" color="#BDBDBD"/>
+                        <Title text="{i18n>searchNoResults}" level="H3" class="sapUiSmallMarginTop"/>
+                        <Text text="No blood units match your search criteria. Try broadening your search or contact nearby blood banks."/>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </content>
+    </Page>
+
+</mvc:View>

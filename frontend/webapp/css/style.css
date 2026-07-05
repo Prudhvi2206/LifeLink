@@ -1,0 +1,1125 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+/* ============================================
+   LifeLink - Custom Styles
+   SAP Fiori Horizon Theme Extensions
+   ============================================ */
+
+body, .sapUiBody, .sapMText, .sapMTitle, .sapMLabel, .sapMBtn, .sapMBtnContent, .sapMObjectNumber, .sapMObjStatus {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* ---- Root Variables ---- */
+:root {
+    --ll-primary: #B71C1C;
+    --ll-primary-light: #E53935;
+    --ll-primary-dark: #7F0000;
+    --ll-accent: #FF5252;
+    --ll-surface: #FFFFFF;
+    --ll-surface-dim: #F5F5F5;
+    --ll-on-primary: #FFFFFF;
+    --ll-success: #2E7D32;
+    --ll-warning: #F57F17;
+    --ll-error: #C62828;
+    --ll-info: #1565C0;
+    --ll-gradient-blood: linear-gradient(135deg, #B71C1C 0%, #E53935 50%, #FF5252 100%);
+    --ll-gradient-dark: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+    --ll-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --ll-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --ll-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+    --ll-radius: 12px;
+    --ll-radius-sm: 8px;
+    --ll-radius-lg: 16px;
+}
+
+/* ---- Tool Page / Navigation ---- */
+.llToolPage .sapTntToolPageHeader {
+    background: var(--ll-gradient-blood) !important;
+    box-shadow: var(--ll-shadow-md);
+}
+
+.llToolPage .sapTntToolPageHeader .sapMTitle {
+    color: var(--ll-on-primary) !important;
+    font-weight: 700 !important;
+    font-size: 1.25rem !important;
+    letter-spacing: 0.5px;
+}
+
+.llToolPage .sapTntNavLI .sapTntNavLIItem {
+    border-radius: var(--ll-radius-sm);
+    margin: 4px 8px;
+    transition: all 0.25s ease;
+}
+
+.llToolPage .sapTntNavLI .sapTntNavLIItem:hover {
+    background: rgba(183, 28, 28, 0.08);
+    transform: translateX(2px);
+}
+
+.llToolPage .sapTntNavLI .sapTntNavLIItemSelected {
+    background: rgba(183, 28, 28, 0.12) !important;
+    border-left: 3px solid var(--ll-primary) !important;
+}
+
+/* ---- Dashboard Cards ---- */
+.llDashboardContainer {
+    padding: 1.5rem;
+    gap: 1.5rem;
+}
+
+.llKpiCard {
+    border-radius: var(--ll-radius) !important;
+    box-shadow: var(--ll-shadow-sm) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.llKpiCard:hover {
+    box-shadow: var(--ll-shadow-md) !important;
+    transform: translateY(-4px);
+}
+
+.llKpiCard .sapFCardHeader {
+    padding: 1.25rem 1.5rem !important;
+}
+
+.llKpiCard .sapMNCIndicator {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+}
+
+.llKpiCardPrimary {
+    background: var(--ll-gradient-blood) !important;
+    color: var(--ll-on-primary) !important;
+}
+
+.llKpiCardPrimary .sapFCardHeaderTitle,
+.llKpiCardPrimary .sapFCardHeaderSubtitle,
+.llKpiCardPrimary .sapMNCIndicator,
+.llKpiCardPrimary .sapMText {
+    color: var(--ll-on-primary) !important;
+}
+
+.llKpiCardSuccess {
+    border-top: 4px solid var(--ll-success);
+}
+
+.llKpiCardWarning {
+    border-top: 4px solid var(--ll-warning);
+}
+
+.llKpiCardError {
+    border-top: 4px solid var(--ll-error);
+}
+
+.llKpiCardInfo {
+    border-top: 4px solid var(--ll-info);
+}
+
+/* ---- Dashboard Grid ---- */
+.llDashGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 0 0 1.5rem 0;
+}
+
+.llDashGridWide {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+    padding: 0 0 1.5rem 0;
+}
+
+/* ---- Quick Action Cards ---- */
+.llQuickAction {
+    border-radius: var(--ll-radius) !important;
+    box-shadow: var(--ll-shadow-sm) !important;
+    cursor: pointer;
+    transition: all 0.3s ease !important;
+    text-align: center;
+    padding: 1.5rem !important;
+}
+
+.llQuickAction:hover {
+    box-shadow: var(--ll-shadow-md) !important;
+    transform: translateY(-3px);
+    background: rgba(183, 28, 28, 0.04);
+}
+
+.llQuickAction .sapUiIcon {
+    font-size: 2.5rem !important;
+    color: var(--ll-primary) !important;
+    margin-bottom: 0.75rem;
+}
+
+.llQuickAction .sapMTitle {
+    color: var(--ll-primary) !important;
+    font-weight: 600 !important;
+}
+
+/* ---- Page Headers ---- */
+.llPageHeader {
+    background: var(--ll-gradient-blood) !important;
+    padding: 1.5rem 2rem !important;
+    border-radius: 0 0 var(--ll-radius-lg) var(--ll-radius-lg);
+    margin-bottom: 1.5rem;
+}
+
+.llPageHeader .sapMTitle {
+    color: var(--ll-on-primary) !important;
+    font-weight: 700 !important;
+}
+
+/* ---- Tables ---- */
+.llTable .sapMListTblHeader {
+    background: var(--ll-surface-dim) !important;
+    border-bottom: 2px solid var(--ll-primary);
+}
+
+.llTable .sapMListTblRow:hover {
+    background: rgba(183, 28, 28, 0.04) !important;
+}
+
+.llTable .sapMListTblCell {
+    padding: 0.75rem 1rem !important;
+}
+
+/* ---- Status Badges ---- */
+.llBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.llBadgePending {
+    background: #FFF3E0;
+    color: #E65100;
+}
+
+.llBadgeApproved {
+    background: #E8F5E9;
+    color: #1B5E20;
+}
+
+.llBadgeRejected {
+    background: #FFEBEE;
+    color: #B71C1C;
+}
+
+.llBadgeCompleted {
+    background: #E3F2FD;
+    color: #0D47A1;
+}
+
+.llBadgeCritical {
+    background: #B71C1C;
+    color: #FFFFFF;
+    animation: llPulse 2s infinite;
+}
+
+@keyframes llPulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* ---- Forms ---- */
+.llForm {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.llForm .sapUiFormTitle {
+    color: var(--ll-primary) !important;
+    font-weight: 600 !important;
+    border-bottom: 2px solid var(--ll-primary);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.llForm .sapMInputBase {
+    border-radius: var(--ll-radius-sm) !important;
+}
+
+/* ---- Cards & Panels ---- */
+.llPanel {
+    border-radius: var(--ll-radius) !important;
+    box-shadow: var(--ll-shadow-sm) !important;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.llPanel .sapMPanelHdr {
+    background: var(--ll-surface-dim);
+    font-weight: 600;
+    color: var(--ll-primary);
+    padding: 1rem 1.5rem !important;
+}
+
+/* ---- Blood Group Tags ---- */
+.llBloodTag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 32px;
+    border-radius: 50px;
+    background: var(--ll-gradient-blood);
+    color: var(--ll-on-primary);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+/* ---- Charts Container ---- */
+.llChartContainer {
+    border-radius: var(--ll-radius) !important;
+    box-shadow: var(--ll-shadow-sm) !important;
+    padding: 1.5rem;
+    background: var(--ll-surface);
+}
+
+/* ---- SmartForm Download Cards ---- */
+.llDocCard {
+    border-radius: var(--ll-radius) !important;
+    box-shadow: var(--ll-shadow-sm) !important;
+    transition: all 0.3s ease !important;
+    overflow: hidden;
+    min-height: 200px;
+}
+
+.llDocCard:hover {
+    box-shadow: var(--ll-shadow-lg) !important;
+    transform: translateY(-4px);
+}
+
+.llDocCard .sapFCardHeader {
+    border-bottom: 3px solid var(--ll-primary);
+}
+
+/* ---- Search Page ---- */
+.llSearchForm {
+    background: var(--ll-surface);
+    border-radius: var(--ll-radius);
+    box-shadow: var(--ll-shadow-sm);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.llSearchResults {
+    background: var(--ll-surface);
+    border-radius: var(--ll-radius);
+    box-shadow: var(--ll-shadow-sm);
+    overflow: hidden;
+}
+
+.llNoResults {
+    text-align: center;
+    padding: 3rem;
+}
+
+.llNoResults .sapUiIcon {
+    font-size: 4rem !important;
+    color: #BDBDBD;
+    margin-bottom: 1rem;
+}
+
+.llNoResults .sapMTitle {
+    color: #757575;
+}
+
+/* ---- Object Page ---- */
+.llObjectPage .sapUxAPObjectPageHeaderTitle {
+    background: var(--ll-gradient-blood) !important;
+}
+
+/* ---- Responsive Adjustments ---- */
+@media (max-width: 768px) {
+    .llDashGrid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+    }
+
+    .llDashGridWide {
+        grid-template-columns: 1fr;
+    }
+
+    .llDashboardContainer {
+        padding: 1rem;
+    }
+
+    .llForm {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .llDashGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .llKpiCard .sapMNCIndicator {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* ---- Animations ---- */
+@keyframes llFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.llAnimateIn {
+    animation: llFadeInUp 0.4s ease-out forwards;
+}
+
+.llAnimateIn:nth-child(1) { animation-delay: 0.05s; }
+.llAnimateIn:nth-child(2) { animation-delay: 0.10s; }
+.llAnimateIn:nth-child(3) { animation-delay: 0.15s; }
+.llAnimateIn:nth-child(4) { animation-delay: 0.20s; }
+.llAnimateIn:nth-child(5) { animation-delay: 0.25s; }
+.llAnimateIn:nth-child(6) { animation-delay: 0.30s; }
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--ll-surface-dim);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #BDBDBD;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9E9E9E;
+}
+
+/* ---- Utility Classes ---- */
+.llTextCenter {
+    text-align: center !important;
+}
+
+.llTextPrimary {
+    color: var(--ll-primary) !important;
+}
+
+.llTextBold {
+    font-weight: 700 !important;
+}
+
+.llMt1 {
+    margin-top: 1rem !important;
+}
+
+.llMb1 {
+    margin-bottom: 1rem !important;
+}
+
+.llP1 {
+    padding: 1rem !important;
+}
+
+.llP2 {
+    padding: 2rem !important;
+}
+
+/* ============================================
+   Landing Page (Home) & Authentication Styling
+   ============================================ */
+
+.llPublicPage {
+    background: radial-gradient(circle at 10% 20%, rgba(255, 82, 82, 0.02) 0%, rgba(255, 255, 255, 0) 90%), 
+                radial-gradient(circle at 90% 80%, rgba(183, 28, 28, 0.02) 0%, rgba(255, 255, 255, 0) 90%), 
+                #FCFDFD !important;
+}
+
+.llLandingHeader {
+    position: sticky !important;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+    padding: 1rem 4rem !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.01) !important;
+}
+
+.llNavLink {
+    color: #555555 !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    text-decoration: none !important;
+}
+
+.llNavLink:hover {
+    color: var(--ll-primary) !important;
+    transform: translateY(-1px);
+}
+
+.llHeaderBtn {
+    color: #444444 !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    padding: 0 1rem !important;
+}
+
+.llHeaderBtnActive .sapMBtnInner {
+    background: var(--ll-gradient-blood) !important;
+    border: none !important;
+    border-radius: 50px !important;
+    box-shadow: 0 4px 12px rgba(183, 28, 28, 0.2) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: normal !important;
+    transition: all 0.25s ease !important;
+}
+
+.llHeaderBtnActive .sapMBtnInner .sapMBtnContent {
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+}
+
+.llHeaderBtnActive:hover .sapMBtnInner {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(183, 28, 28, 0.3) !important;
+}
+
+.llHeroSection {
+    padding: 6rem 4rem 4rem 4rem !important;
+    min-height: 75vh;
+}
+
+.llHeroLeft {
+    padding-right: 3rem !important;
+}
+
+.llHeroPretitle {
+    color: var(--ll-primary-light) !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 1rem !important;
+}
+
+.llHeroTitle .sapMTitleText {
+    font-size: 3.5rem !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -1px !important;
+    background: linear-gradient(135deg, #B71C1C 0%, #E53935 60%, #FF5252 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    display: inline-block;
+}
+
+.llHeroSubtitle {
+    color: #555555 !important;
+    font-size: 1.15rem !important;
+    line-height: 1.6 !important;
+    max-width: 600px;
+}
+
+.llHeroImage {
+    filter: drop-shadow(0 15px 35px rgba(183, 28, 28, 0.1));
+}
+
+.llBtnLarge {
+    height: 48px !important;
+    transition: all 0.25s ease !important;
+}
+
+.llBtnLarge .sapMBtnInner {
+    height: 48px !important;
+    padding: 0 2rem !important;
+    border-radius: 50px !important;
+    background: var(--ll-gradient-blood) !important;
+    border: none !important;
+    box-shadow: 0 4px 14px rgba(183, 28, 28, 0.25) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: normal !important;
+    transition: all 0.25s ease !important;
+}
+
+.llBtnLarge .sapMBtnInner .sapMBtnContent {
+    color: #FFFFFF !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+
+.llBtnLarge:hover .sapMBtnInner {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(183, 28, 28, 0.35) !important;
+    filter: brightness(1.1);
+}
+
+.llBtnLargeOutlined {
+    height: 48px !important;
+    transition: all 0.25s ease !important;
+}
+
+.llBtnLargeOutlined .sapMBtnInner {
+    height: 48px !important;
+    padding: 0 2rem !important;
+    border-radius: 50px !important;
+    border: 2px solid var(--ll-primary) !important;
+    background: transparent !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: normal !important;
+    transition: all 0.25s ease !important;
+}
+
+.llBtnLargeOutlined .sapMBtnInner .sapMBtnContent {
+    color: var(--ll-primary) !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+
+.llBtnLargeOutlined:hover .sapMBtnInner {
+    background: var(--ll-primary) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(183, 28, 28, 0.2) !important;
+}
+
+.llBtnLargeOutlined:hover .sapMBtnInner .sapMBtnContent {
+    color: #FFFFFF !important;
+}
+
+.llBtnLargeDefault {
+    height: 48px !important;
+    transition: all 0.25s ease !important;
+}
+
+.llBtnLargeDefault .sapMBtnInner {
+    height: 48px !important;
+    padding: 0 2rem !important;
+    border-radius: 50px !important;
+    background: #111827 !important; /* sleek charcoal dark */
+    border: none !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: normal !important;
+    transition: all 0.25s ease !important;
+}
+
+.llBtnLargeDefault .sapMBtnInner .sapMBtnContent {
+    color: #FFFFFF !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+
+.llBtnLargeDefault:hover .sapMBtnInner {
+    background: #1F2937 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+.llAnimatePulse {
+    animation: llPulseFloat 6s ease-in-out infinite;
+}
+
+@keyframes llPulseFloat {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
+.llStatsSection {
+    background: #FFFFFF !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.04) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04) !important;
+    padding: 4rem 2rem !important;
+    margin: 0 auto !important;
+}
+
+.llStatCard {
+    background: #FFFFFF !important;
+    border-radius: var(--ll-radius) !important;
+    border: 1px solid rgba(183, 28, 28, 0.04) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01) !important;
+    padding: 2rem !important;
+    min-width: 220px;
+    transition: all 0.3s ease !important;
+}
+
+.llStatCard:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: var(--ll-shadow-md) !important;
+    border-color: rgba(183, 28, 28, 0.15) !important;
+}
+
+.llStatNumber .sapMTitleText {
+    font-size: 2.75rem !important;
+    font-weight: 800 !important;
+    color: var(--ll-primary) !important;
+    letter-spacing: -0.5px !important;
+}
+
+.llStatLabel {
+    color: #666666 !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem !important;
+    margin-top: 0.5rem !important;
+}
+
+.llFeaturesSection {
+    padding: 6rem 4rem !important;
+    background: #FCFDFD !important;
+}
+
+.llSectionTitle .sapMTitleText {
+    font-size: 2.25rem !important;
+    font-weight: 700 !important;
+    color: #1A1A1A !important;
+}
+
+.llSectionSubtitle {
+    color: #666666 !important;
+    font-size: 1.05rem !important;
+}
+
+.llFeaturesGrid {
+    width: 100% !important;
+    max-width: 1200px !important;
+}
+
+.llFeatureCard {
+    background: #FFFFFF !important;
+    border-radius: var(--ll-radius-lg) !important;
+    padding: 2.5rem 2rem !important;
+    width: 260px;
+    box-shadow: var(--ll-shadow-sm) !important;
+    border: 1px solid rgba(0, 0, 0, 0.03) !important;
+    transition: all 0.3s ease !important;
+    align-items: center;
+}
+
+.llFeatureCard:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: var(--ll-shadow-lg) !important;
+    border-color: rgba(183, 28, 28, 0.12) !important;
+}
+
+.llFeatureIcon {
+    font-size: 2.5rem !important;
+    background: rgba(183, 28, 28, 0.05) !important;
+    padding: 1.25rem !important;
+    border-radius: var(--ll-radius) !important;
+    transition: all 0.3s ease !important;
+}
+
+.llFeatureCard:hover .llFeatureIcon {
+    background: var(--ll-primary) !important;
+    color: #FFFFFF !important;
+}
+
+.llFeatureCard .sapMTitleText {
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    color: #1A1A1A !important;
+}
+
+.llFeatureCard .sapMText {
+    color: #666666 !important;
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+}
+
+.llCtaBanner {
+    background: var(--ll-gradient-dark) !important;
+    padding: 6rem 4rem !important;
+    color: #FFFFFF !important;
+    text-align: center !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.llCtaBanner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(183, 28, 28, 0.15) 0%, rgba(0,0,0,0) 60%);
+    pointer-events: none;
+}
+
+.llCtaTitle .sapMTitleText {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+}
+
+.llCtaSubtitle {
+    color: #B2C3D2 !important;
+    font-size: 1.15rem !important;
+    max-width: 600px;
+}
+
+.llLandingFooter {
+    background: #111827 !important;
+    padding: 2.5rem 2rem !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.llFooterText {
+    color: #9CA3AF !important;
+    font-size: 0.85rem !important;
+}
+
+/* ---- Authentication Pages (Sign In & Sign Up) ---- */
+
+.llAuthPage {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+}
+
+.llFloatingBackBtn {
+    position: fixed !important;
+    top: 2rem !important;
+    left: 2rem !important;
+    z-index: 1000 !important;
+    font-weight: 600 !important;
+    color: #444444 !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    border-radius: 50px !important;
+    padding: 0 1.25rem !important;
+    height: 40px !important;
+}
+
+.llFloatingBackBtn:hover {
+    background: rgba(183, 28, 28, 0.05) !important;
+    color: var(--ll-primary) !important;
+}
+
+.llAuthContainer {
+    min-height: 100vh !important;
+    width: 100% !important;
+    padding: 4rem 1.5rem !important;
+}
+
+.llAuthCard {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06) !important;
+    border-radius: var(--ll-radius-lg) !important;
+    padding: 3.5rem 3rem !important;
+    width: 440px !important;
+    max-width: 100% !important;
+    transition: all 0.3s ease !important;
+}
+
+.llRegisterCard {
+    width: 600px !important;
+}
+
+.llAuthHeader {
+    text-align: center !important;
+}
+
+.llAuthHeader .sapMTitleText {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+    color: #1A1A1A !important;
+}
+
+.llAuthHeader .sapMText {
+    color: #666666 !important;
+    font-size: 0.95rem !important;
+}
+
+.llAuthLabel {
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    color: #4A4A4A !important;
+    margin-bottom: 0.4rem !important;
+}
+
+.llAuthInput .sapMInputBaseInner {
+    height: 44px !important;
+    border-radius: var(--ll-radius-sm) !important;
+    border: 1px solid #D2D2D2 !important;
+    padding: 0 1rem !important;
+    font-size: 0.95rem !important;
+    background: #FFFFFF !important;
+}
+
+.llAuthInput .sapMInputBaseInner:focus {
+    border-color: var(--ll-primary-light) !important;
+    box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.15) !important;
+}
+
+.llAuthSelect {
+    height: 44px !important;
+}
+
+.llAuthSelect .sapMSlt {
+    height: 44px !important;
+    border-radius: var(--ll-radius-sm) !important;
+    border: 1px solid #D2D2D2 !important;
+    background: #FFFFFF !important;
+}
+
+.llAuthSelect .sapMSltLabel {
+    line-height: 42px !important;
+    padding-left: 1rem !important;
+}
+
+.llAuthSegmented {
+    height: 44px !important;
+}
+
+.llAuthSegmented .sapMSB {
+    height: 44px !important;
+    border-radius: var(--ll-radius-sm) !important;
+}
+
+.llAuthSegmented .sapMSBBtn {
+    height: 42px !important;
+    line-height: 40px !important;
+}
+
+.llBtnFullWidth {
+    width: 100% !important;
+}
+
+.llAuthCheckbox {
+    font-size: 0.9rem !important;
+}
+
+.llAuthLink {
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    color: var(--ll-primary-light) !important;
+}
+
+.llAuthFooter .sapMText {
+    color: #666666 !important;
+}
+
+/* ---- Responsive Layout Adjustments ---- */
+@media (max-width: 992px) {
+    .llHeroSection {
+        flex-direction: column !important;
+        padding: 6rem 2rem 4rem 2rem !important;
+        text-align: center !important;
+    }
+
+    .llHeroLeft {
+        width: 100% !important;
+        padding-right: 0 !important;
+        margin-bottom: 3rem !important;
+    }
+
+    .llHeroRight {
+        width: 100% !important;
+    }
+
+    .llHeroSubtitle {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .llHeroActions {
+        justify-content: Center !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .llLandingHeader {
+        padding: 1rem 2rem !important;
+    }
+    
+    .llHeaderNavLinks {
+        display: none !important;
+    }
+
+    .llFeaturesSection {
+        padding: 4rem 2rem !important;
+    }
+
+    .llHeroTitle .sapMTitleText {
+        font-size: 2.75rem !important;
+    }
+
+    .llAuthCard {
+        padding: 2.5rem 2rem !important;
+    }
+}
+
+/* ============================================
+   Enhanced Homepage Widgets & Interactive Styles
+   ============================================ */
+
+.llAnimatedGlowBackground {
+    background: radial-gradient(circle at 10% 20%, rgba(255, 82, 82, 0.04) 0%, rgba(255, 255, 255, 0) 90%),
+                radial-gradient(circle at 90% 80%, rgba(183, 28, 28, 0.04) 0%, rgba(255, 255, 255, 0) 90%),
+                #FFFFFF !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.llAnimatedGlowBackground::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 80%;
+    width: 250px;
+    height: 250px;
+    background: rgba(229, 57, 53, 0.06);
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: llFloatGlow 8s ease-in-out infinite;
+}
+
+@keyframes llFloatGlow {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.1); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+.llInteractiveSection {
+    padding: 6rem 4rem !important;
+    background: #FFFFFF !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.llInteractiveGrid {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    gap: 2rem !important;
+}
+
+.llInteractiveCard {
+    padding: 2.5rem !important;
+    min-height: 480px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.llInteractiveCard:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(183, 28, 28, 0.15) !important;
+}
+
+.llGlassCard {
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: var(--ll-shadow-sm) !important;
+    border-radius: var(--ll-radius-lg) !important;
+}
+
+.llWidgetIcon {
+    font-size: 2rem !important;
+    background: rgba(0, 0, 0, 0.03) !important;
+    padding: 0.75rem !important;
+    border-radius: 50% !important;
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.llTestimonialsSection {
+    padding: 6rem 4rem !important;
+    background: radial-gradient(circle at 50% 50%, rgba(183, 28, 28, 0.01) 0%, rgba(255, 255, 255, 0) 70%), #FCFDFD !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.llTestimonialsGrid {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    gap: 2rem !important;
+}
+
+.llTestimonialCard {
+    padding: 2.5rem 2rem !important;
+    width: 340px !important;
+    min-height: 240px !important;
+    border: 1px solid rgba(0, 0, 0, 0.03) !important;
+    box-shadow: var(--ll-shadow-sm) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.llTestimonialCard:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: var(--ll-shadow-lg) !important;
+    border-color: rgba(183, 28, 28, 0.12) !important;
+}
+
+.llTestimonialQuote {
+    font-style: italic !important;
+    color: #4B5563 !important;
+    line-height: 1.6 !important;
+    font-size: 0.95rem !important;
+    margin-top: 0.75rem !important;
+}
+
+.llSearchResultsBox {
+    background: rgba(183, 28, 28, 0.02) !important;
+    border: 1px solid rgba(183, 28, 28, 0.08) !important;
+    border-radius: var(--ll-radius) !important;
+    padding: 1.5rem !important;
+    width: 100% !important;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.01) !important;
+}
+
+.llEligibilityBox {
+    width: 100% !important;
+}
+
+.textMuted {
+    color: #6B7280 !important;
+    font-size: 0.85rem !important;
+}
+
+@media (max-width: 992px) {
+    .llInteractiveGrid {
+        flex-direction: column !important;
+    }
+    .llInteractiveCard {
+        width: 100% !important;
+        min-height: auto !important;
+    }
+}
+

@@ -1,0 +1,133 @@
+<mvc:View
+    controllerName="lifelink.controller.SmartFormDownload"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:cards="sap.f.cards"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout">
+
+    <Page id="smartFormPage" title="{i18n>smartFormTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiResponsiveMargin">
+                <!-- Header -->
+                <VBox class="llPageHeader">
+                    <Title text="{i18n>smartFormTitle}" level="H2"/>
+                    <Text text="Generate and download official blood bank documents." class="sapUiTinyMarginTop"/>
+                </VBox>
+
+                <layout:Grid defaultSpan="XL6 L6 M12 S12" class="sapUiSmallMarginTop">
+                    <!-- Blood Donation Certificate Card -->
+                    <f:Card class="llDocCard llAnimateIn" width="100%">
+                        <f:header>
+                            <cards:Header
+                                title="{i18n>smartFormDonationCert}"
+                                subtitle="{i18n>smartFormDonationCertDesc}"
+                                iconSrc="sap-icon://official-service"/>
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiSmallMargin">
+                                <MessageStrip text="Select a donation record to generate the certificate." type="Information" showIcon="true" class="sapUiSmallMarginBottom"/>
+
+                                <Label text="{i18n>smartFormSelectDonation}" required="true" class="sapUiSmallMarginTop"/>
+                                <Select id="selectDonation" forceSelection="false"
+                                        items="{/DonationHistorySet}" width="100%"
+                                        class="sapUiSmallMarginBottom">
+                                    <core:Item key="{DonationId}" text="{DonationId} - {DonorName} ({BloodGroup}) - { path: 'DonationDate', formatter: '.formatter.formatDate' }"/>
+                                </Select>
+
+                                <HBox justifyContent="Center" class="sapUiMediumMarginTop">
+                                    <Button text="{i18n>smartFormGenerate}" icon="sap-icon://document" type="Emphasized"
+                                            press="onGenerateDonationCert" class="sapUiSmallMarginEnd"/>
+                                </HBox>
+
+                                <!-- Preview Section -->
+                                <VBox id="certPreview" visible="{smartForm>/certGenerated}" class="sapUiSmallMarginTop">
+                                    <MessageStrip text="Certificate generated successfully! Click download to save." type="Success" showIcon="true"/>
+                                    <Panel headerText="Certificate Preview" expandable="true" expanded="true" class="sapUiSmallMarginTop llPanel">
+                                        <VBox class="sapUiSmallMargin llTextCenter">
+                                            <Title text="🩸 LifeLink Blood Bank" level="H3"/>
+                                            <Title text="BLOOD DONATION CERTIFICATE" level="H4" class="sapUiTinyMarginTop"/>
+                                            <Text text="————————————————————" class="sapUiTinyMarginTop"/>
+                                            <Text text="This is to certify that" class="sapUiSmallMarginTop"/>
+                                            <Title text="{smartForm>/certDonorName}" level="H4"/>
+                                            <Text text="has voluntarily donated blood on"/>
+                                            <Text text="{smartForm>/certDate}" class="llTextBold"/>
+                                            <Text text="Blood Group: {smartForm>/certBloodGroup}" class="sapUiSmallMarginTop"/>
+                                            <Text text="Units Donated: {smartForm>/certUnits}"/>
+                                            <Text text="Donation Center: {smartForm>/certHospital}" class="sapUiSmallMarginTop"/>
+                                            <Text text="Certificate ID: {smartForm>/certId}" class="sapUiSmallMarginTop"/>
+                                            <Text text="————————————————————" class="sapUiMediumMarginTop"/>
+                                            <Text text="Thank you for saving lives!" class="llTextPrimary llTextBold"/>
+                                        </VBox>
+                                    </Panel>
+                                    <Button text="{i18n>smartFormDownload}" icon="sap-icon://download" type="Emphasized"
+                                            press="onDownloadCert" class="sapUiSmallMarginTop"/>
+                                </VBox>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <!-- Emergency Blood Request Slip Card -->
+                    <f:Card class="llDocCard llAnimateIn" width="100%">
+                        <f:header>
+                            <cards:Header
+                                title="{i18n>smartFormEmergencySlip}"
+                                subtitle="{i18n>smartFormEmergencySlipDesc}"
+                                iconSrc="sap-icon://alert"/>
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiSmallMargin">
+                                <MessageStrip text="Select an emergency request to generate the slip." type="Information" showIcon="true" class="sapUiSmallMarginBottom"/>
+
+                                <Label text="{i18n>smartFormSelectRequest}" required="true" class="sapUiSmallMarginTop"/>
+                                <Select id="selectRequest" forceSelection="false"
+                                        items="{/EmergencyRequestSet}" width="100%"
+                                        class="sapUiSmallMarginBottom">
+                                    <core:Item key="{RequestId}" text="{RequestId} - {PatientName} ({BloodGroup}) - {Status}"/>
+                                </Select>
+
+                                <HBox justifyContent="Center" class="sapUiMediumMarginTop">
+                                    <Button text="{i18n>smartFormGenerate}" icon="sap-icon://document" type="Emphasized"
+                                            press="onGenerateEmergencySlip" class="sapUiSmallMarginEnd"/>
+                                </HBox>
+
+                                <!-- Preview Section -->
+                                <VBox id="slipPreview" visible="{smartForm>/slipGenerated}" class="sapUiSmallMarginTop">
+                                    <MessageStrip text="Emergency slip generated successfully! Click download to save." type="Success" showIcon="true"/>
+                                    <Panel headerText="Slip Preview" expandable="true" expanded="true" class="sapUiSmallMarginTop llPanel">
+                                        <VBox class="sapUiSmallMargin llTextCenter">
+                                            <Title text="🚨 EMERGENCY BLOOD REQUEST SLIP" level="H3"/>
+                                            <Text text="————————————————————" class="sapUiTinyMarginTop"/>
+                                            <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
+                                                <VBox>
+                                                    <Text text="Request ID: {smartForm>/slipRequestId}" class="llTextBold"/>
+                                                    <Text text="Date: {smartForm>/slipDate}"/>
+                                                    <Text text="Urgency: {smartForm>/slipUrgency}" class="sapUiTinyMarginTop"/>
+                                                </VBox>
+                                                <VBox>
+                                                    <Text text="Hospital: {smartForm>/slipHospital}" class="llTextBold"/>
+                                                    <Text text="Contact: {smartForm>/slipContact}"/>
+                                                    <Text text="Phone: {smartForm>/slipPhone}"/>
+                                                </VBox>
+                                            </HBox>
+                                            <Text text="————————————————————" class="sapUiSmallMarginTop"/>
+                                            <Text text="Patient: {smartForm>/slipPatient}" class="llTextBold sapUiSmallMarginTop"/>
+                                            <Text text="Blood Group Required: {smartForm>/slipBloodGroup}"/>
+                                            <Text text="Units Needed: {smartForm>/slipUnits}"/>
+                                            <Text text="Reason: {smartForm>/slipReason}" class="sapUiSmallMarginTop"/>
+                                            <Text text="Status: {smartForm>/slipStatus}" class="sapUiSmallMarginTop llTextBold"/>
+                                        </VBox>
+                                    </Panel>
+                                    <Button text="{i18n>smartFormDownload}" icon="sap-icon://download" type="Emphasized"
+                                            press="onDownloadSlip" class="sapUiSmallMarginTop"/>
+                                </VBox>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+                </layout:Grid>
+            </VBox>
+        </content>
+    </Page>
+
+</mvc:View>

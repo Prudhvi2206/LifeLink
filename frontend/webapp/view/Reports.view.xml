@@ -1,0 +1,163 @@
+<mvc:View
+    controllerName="lifelink.controller.Reports"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page id="reportsPage" title="{i18n>reportTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <headerContent>
+            <Button icon="sap-icon://refresh" press="onRefresh" tooltip="{i18n>btnRefresh}"/>
+        </headerContent>
+
+        <content>
+            <IconTabBar id="reportTabs" select="onTabSelect" expandable="false" class="sapUiSmallMarginBeginEnd">
+                <items>
+                    <!-- Donor Report -->
+                    <IconTabFilter text="{i18n>reportDonor}" icon="sap-icon://group" key="donor">
+                        <VBox class="sapUiSmallMargin">
+                            <Toolbar>
+                                <Title text="{i18n>reportDonor}" level="H4"/>
+                                <ToolbarSpacer/>
+                                <SearchField placeholder="Search donors..." liveChange="onSearchDonorReport" width="250px"/>
+                                <Button icon="sap-icon://excel-attachment" text="{i18n>btnExport}" press="onExportDonorReport"/>
+                            </Toolbar>
+                            <Table id="donorReportTable" items="{/DonorSet}" growing="true" growingThreshold="15"
+                                   class="llTable" mode="None" sticky="ColumnHeaders">
+                                <columns>
+                                    <Column><Text text="Donor ID"/></Column>
+                                    <Column><Text text="Name"/></Column>
+                                    <Column><Text text="Blood Group"/></Column>
+                                    <Column><Text text="City"/></Column>
+                                    <Column><Text text="Phone"/></Column>
+                                    <Column><Text text="Status"/></Column>
+                                    <Column><Text text="Last Donation"/></Column>
+                                    <Column><Text text="Eligibility"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <Text text="{DonorId}"/>
+                                        <Text text="{ parts: ['FirstName', 'LastName'], formatter: '.formatter.formatFullName' }"/>
+                                        <ObjectStatus text="{BloodGroup}" state="Success" icon="sap-icon://heart"/>
+                                        <Text text="{City}"/>
+                                        <Text text="{Phone}"/>
+                                        <ObjectStatus text="{Status}" state="{ path: 'Status', formatter: '.formatter.formatDonorStatusState' }"/>
+                                        <Text text="{ path: 'LastDonationDate', formatter: '.formatter.formatDate' }"/>
+                                        <ObjectStatus text="{ path: 'LastDonationDate', formatter: '.formatter.formatEligibilityText' }"/>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </IconTabFilter>
+
+                    <!-- Blood Inventory Report -->
+                    <IconTabFilter text="{i18n>reportInventory}" icon="sap-icon://inventory" key="inventory">
+                        <VBox class="sapUiSmallMargin">
+                            <Toolbar>
+                                <Title text="{i18n>reportInventory}" level="H4"/>
+                                <ToolbarSpacer/>
+                                <SearchField placeholder="Search inventory..." liveChange="onSearchInventoryReport" width="250px"/>
+                                <Button icon="sap-icon://excel-attachment" text="{i18n>btnExport}" press="onExportInventoryReport"/>
+                            </Toolbar>
+                            <Table id="inventoryReportTable" items="{/BloodInventorySet}" growing="true" growingThreshold="15"
+                                   class="llTable" mode="None" sticky="ColumnHeaders">
+                                <columns>
+                                    <Column><Text text="ID"/></Column>
+                                    <Column><Text text="Blood Group"/></Column>
+                                    <Column><Text text="Units"/></Column>
+                                    <Column><Text text="Hospital"/></Column>
+                                    <Column><Text text="Collection Date"/></Column>
+                                    <Column><Text text="Expiry Date"/></Column>
+                                    <Column><Text text="Status"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem highlight="{ path: 'ExpiryDate', formatter: '.formatter.formatExpiryState' }">
+                                        <Text text="{InventoryId}"/>
+                                        <ObjectStatus text="{BloodGroup}" state="Success"/>
+                                        <ObjectNumber number="{Units}" unit="units" state="{ path: 'Units', formatter: '.formatter.formatStockState' }"/>
+                                        <Text text="{HospitalName}"/>
+                                        <Text text="{ path: 'CollectionDate', formatter: '.formatter.formatDate' }"/>
+                                        <Text text="{ path: 'ExpiryDate', formatter: '.formatter.formatDate' }"/>
+                                        <ObjectStatus text="{Status}" state="{= ${Status} === 'Available' ? 'Success' : 'Warning' }"/>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </IconTabFilter>
+
+                    <!-- Emergency Request Report -->
+                    <IconTabFilter text="{i18n>reportRequest}" icon="sap-icon://alert" key="request">
+                        <VBox class="sapUiSmallMargin">
+                            <Toolbar>
+                                <Title text="{i18n>reportRequest}" level="H4"/>
+                                <ToolbarSpacer/>
+                                <SearchField placeholder="Search requests..." liveChange="onSearchRequestReport" width="250px"/>
+                                <Button icon="sap-icon://excel-attachment" text="{i18n>btnExport}" press="onExportRequestReport"/>
+                            </Toolbar>
+                            <Table id="requestReportTable" items="{/EmergencyRequestSet}" growing="true" growingThreshold="15"
+                                   class="llTable" mode="None" sticky="ColumnHeaders">
+                                <columns>
+                                    <Column><Text text="Request ID"/></Column>
+                                    <Column><Text text="Patient"/></Column>
+                                    <Column><Text text="Hospital"/></Column>
+                                    <Column><Text text="Blood Group"/></Column>
+                                    <Column><Text text="Units"/></Column>
+                                    <Column><Text text="Urgency"/></Column>
+                                    <Column><Text text="Status"/></Column>
+                                    <Column><Text text="Date"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <Text text="{RequestId}"/>
+                                        <Text text="{PatientName}"/>
+                                        <Text text="{HospitalName}"/>
+                                        <ObjectStatus text="{BloodGroup}" state="Warning"/>
+                                        <ObjectNumber number="{UnitsNeeded}" unit="units"/>
+                                        <ObjectStatus text="{Urgency}" state="{ path: 'Urgency', formatter: '.formatter.formatUrgencyState' }"/>
+                                        <ObjectStatus text="{Status}" state="{ path: 'Status', formatter: '.formatter.formatStatusState' }"/>
+                                        <Text text="{ path: 'RequestDate', formatter: '.formatter.formatDate' }"/>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </IconTabFilter>
+
+                    <!-- Donation Report -->
+                    <IconTabFilter text="{i18n>reportDonation}" icon="sap-icon://history" key="donation">
+                        <VBox class="sapUiSmallMargin">
+                            <Toolbar>
+                                <Title text="{i18n>reportDonation}" level="H4"/>
+                                <ToolbarSpacer/>
+                                <SearchField placeholder="Search donations..." liveChange="onSearchDonationReport" width="250px"/>
+                                <Button icon="sap-icon://excel-attachment" text="{i18n>btnExport}" press="onExportDonationReport"/>
+                            </Toolbar>
+                            <Table id="donationReportTable" items="{/DonationHistorySet}" growing="true" growingThreshold="15"
+                                   class="llTable" mode="None" sticky="ColumnHeaders">
+                                <columns>
+                                    <Column><Text text="Donation ID"/></Column>
+                                    <Column><Text text="Donor"/></Column>
+                                    <Column><Text text="Blood Group"/></Column>
+                                    <Column><Text text="Date"/></Column>
+                                    <Column><Text text="Hospital"/></Column>
+                                    <Column><Text text="Units"/></Column>
+                                    <Column><Text text="Notes"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <Text text="{DonationId}"/>
+                                        <ObjectIdentifier title="{DonorName}" text="{DonorId}"/>
+                                        <ObjectStatus text="{BloodGroup}" state="Success"/>
+                                        <Text text="{ path: 'DonationDate', formatter: '.formatter.formatDate' }"/>
+                                        <Text text="{HospitalName}"/>
+                                        <ObjectNumber number="{Units}" unit="unit(s)"/>
+                                        <Text text="{Notes}"/>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+    </Page>
+
+</mvc:View>

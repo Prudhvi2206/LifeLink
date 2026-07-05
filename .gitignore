@@ -1,0 +1,24 @@
+# LifeLink Dependencies
+node_modules/
+dist/
+.ui5/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# SAP
+.che/
+mta_archives/
+*.mtar
+
+# Logs
+*.log
+npm-debug.log*

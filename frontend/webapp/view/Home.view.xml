@@ -1,0 +1,251 @@
+<mvc:View
+    controllerName="lifelink.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout">
+
+    <Page id="homePage" showHeader="false" enableScrolling="true" class="llPublicPage">
+        <content>
+            <!-- 🌐 Floating Premium Navigation Header -->
+            <HBox class="llLandingHeader" alignItems="Center" justifyContent="SpaceBetween">
+                <HBox alignItems="Center">
+                    <core:Icon src="sap-icon://heart" color="#B71C1C" size="2rem" class="sapUiTinyMarginEnd"/>
+                    <Title text="LifeLink" level="H1" titleStyle="H3" class="llTextBold llTextPrimary"/>
+                </HBox>
+                
+                <HBox class="llHeaderNavLinks" gap="1.5rem" alignItems="Center">
+                    <Link text="Features" press="onScrollToFeatures" class="llNavLink"/>
+                    <Link text="Interactive Tools" press="onScrollToTools" class="llNavLink"/>
+                    <Link text="Impact" press="onScrollToStats" class="llNavLink"/>
+                    <Link text="Testimonials" press="onScrollToTestimonials" class="llNavLink"/>
+                </HBox>
+
+                <HBox gap="0.75rem" alignItems="Center">
+                    <Button text="Sign In" type="Transparent" press="onNavToSignIn" class="llHeaderBtn"/>
+                    <Button text="Get Started" type="Emphasized" press="onNavToSignUp" class="llHeaderBtn llHeaderBtnActive"/>
+                </HBox>
+            </HBox>
+
+            <!-- 🚀 Hero Section with Animated Glow Background -->
+            <VBox class="llAnimatedGlowBackground">
+                <HBox class="llHeroSection" wrap="Wrap" alignItems="Center">
+                    <VBox class="llHeroLeft" width="50%">
+                        <Text text="CONNECTED HEALTHCARE NETWORK" class="llHeroPretitle"/>
+                        <Title text="Connecting Hearts, Saving Lives." class="llHeroTitle sapUiMediumMarginBottom"/>
+                        <Text text="An enterprise-level blood donation and emergency request matching network. Bridging the gap between voluntary donors, blood banks, and hospitals in real-time." class="llHeroSubtitle sapUiMediumMarginBottom"/>
+                        
+                        <HBox class="llHeroActions" gap="1rem" wrap="Wrap">
+                            <Button text="Become a Donor" type="Reject" press="onNavToSignUp" class="llBtnLarge"/>
+                            <Button text="Request Blood" type="Emphasized" press="onNavToRequestCreate" class="llBtnLargeOutlined"/>
+                            <Button text="Explore Dashboard" type="Default" press="onNavToDashboard" class="llBtnLargeDefault"/>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox class="llHeroRight" width="50%" alignItems="Center">
+                        <Image src="images/hero.png" width="90%" class="llHeroImage llAnimatePulse"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- 🛠️ Interactive Widgets Section (Quick Tools) -->
+            <VBox id="interactiveSection" class="llInteractiveSection" alignItems="Center">
+                <Title text="Interactive Quick Tools" class="llSectionTitle sapUiSmallMarginBottom"/>
+                <Text text="Check blood availability or verify your donation eligibility instantly without logging in." class="llSectionSubtitle sapUiLargeMarginBottom"/>
+
+                <HBox class="llInteractiveGrid" wrap="Wrap" justifyContent="SpaceBetween" alignItems="Stretch" width="100%">
+                    <!-- Widget 1: Quick Blood Search -->
+                    <VBox class="llGlassCard llInteractiveCard" width="48%">
+                        <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                            <core:Icon src="sap-icon://search" class="llWidgetIcon" color="#B71C1C"/>
+                            <Title text="Quick Blood Availability" level="H3" class="sapUiSmallMarginBegin llTextBold"/>
+                        </HBox>
+                        <Text text="Find real-time blood stock status in nearby partner hospitals." class="sapUiSmallMarginBottom textMuted"/>
+                        
+                        <VBox class="llFormContainer sapUiMediumMarginTop">
+                            <Label text="Blood Group" class="llAuthLabel" required="true"/>
+                            <Select id="quickBloodGroup" width="100%" class="llAuthSelect sapUiSmallMarginBottom">
+                                <items>
+                                    <core:Item key="A+" text="A+"/>
+                                    <core:Item key="A-" text="A-"/>
+                                    <core:Item key="B+" text="B+"/>
+                                    <core:Item key="B-" text="B-"/>
+                                    <core:Item key="AB+" text="AB+"/>
+                                    <core:Item key="AB-" text="AB-"/>
+                                    <core:Item key="O+" text="O+"/>
+                                    <core:Item key="O-" text="O-"/>
+                                </items>
+                            </Select>
+
+                            <Label text="City" class="llAuthLabel" required="true"/>
+                            <Input id="quickCity" placeholder="Enter city (e.g. New York, Chicago)" class="llAuthInput sapUiMediumMarginBottom"/>
+
+                            <Button text="Search Stock" type="Reject" press="onQuickSearch" class="llBtnLarge llBtnFullWidth"/>
+                        </VBox>
+
+                        <!-- Results Box -->
+                        <VBox visible="{homeView>/showSearchResults}" class="llSearchResultsBox llAnimateIn sapUiMediumMarginTop">
+                            <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiTinyMarginBottom">
+                                <Title text="Availability Results" level="H4" class="llTextBold llTextPrimary"/>
+                                <Button icon="sap-icon://decline" type="Transparent" press="onCloseQuickSearch" tooltip="Close"/>
+                            </HBox>
+                            <List items="{homeView>/searchResults}">
+                                <CustomListItem>
+                                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                                        <VBox>
+                                            <Text text="{homeView>HospitalName}" class="llTextBold"/>
+                                            <Text text="{homeView>StorageLocation}" class="textMuted sapUiTinyMarginTop"/>
+                                        </VBox>
+                                        <ObjectStatus text="{homeView>AvailableUnits} Units" state="{= ${homeView>AvailableUnits} > 5 ? 'Success' : 'Warning' }"/>
+                                    </HBox>
+                                </CustomListItem>
+                            </List>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Widget 2: Donor Eligibility Checker -->
+                    <VBox class="llGlassCard llInteractiveCard" width="48%">
+                        <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                            <core:Icon src="sap-icon://appointment-2" class="llWidgetIcon" color="#2E7D32"/>
+                            <Title text="Donation Eligibility Quiz" level="H3" class="sapUiSmallMarginBegin llTextBold"/>
+                        </HBox>
+                        <Text text="Quick safety check to see if you can donate blood today." class="sapUiSmallMarginBottom textMuted"/>
+
+                        <VBox class="llFormContainer sapUiMediumMarginTop">
+                            <Label text="Your Age (Years)" class="llAuthLabel" required="true"/>
+                            <Input id="quickAge" type="Number" placeholder="e.g. 25" class="llAuthInput sapUiSmallMarginBottom"/>
+
+                            <Label text="Your Weight (kg)" class="llAuthLabel" required="true"/>
+                            <Input id="quickWeight" type="Number" placeholder="e.g. 68" class="llAuthInput sapUiSmallMarginBottom"/>
+
+                            <Label text="Days Since Last Donation" class="llAuthLabel" required="true"/>
+                            <Input id="quickDays" type="Number" placeholder="If never, enter 100" class="llAuthInput sapUiMediumMarginBottom"/>
+
+                            <Button text="Check Eligibility" type="Emphasized" press="onQuickCheckEligibility" class="llBtnLargeOutlined llBtnFullWidth"/>
+                        </VBox>
+
+                        <!-- Eligibility Results Box -->
+                        <VBox visible="{homeView>/showEligibilityResults}" class="llEligibilityBox llAnimateIn sapUiMediumMarginTop">
+                            <MessageStrip
+                                text="{homeView>/eligibilityText}"
+                                type="{homeView>/eligibilityState}"
+                                showIcon="true"
+                                showCloseButton="true"
+                                close="onCloseEligibility"/>
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- 📊 Statistics Section -->
+            <HBox id="statsSection" class="llStatsSection" wrap="Wrap" justifyContent="SpaceAround" alignItems="Center">
+                <VBox class="llStatCard llAnimateIn" alignItems="Center">
+                    <Title text="5,200+" class="llStatNumber"/>
+                    <Text text="Registered Donors" class="llStatLabel"/>
+                </VBox>
+                <VBox class="llStatCard llAnimateIn" alignItems="Center">
+                    <Title text="150+" class="llStatNumber"/>
+                    <Text text="Associated Hospitals" class="llStatLabel"/>
+                </VBox>
+                <VBox class="llStatCard llAnimateIn" alignItems="Center">
+                    <Title text="4.8s" class="llStatNumber"/>
+                    <Text text="Matching Response" class="llStatLabel"/>
+                </VBox>
+                <VBox class="llStatCard llAnimateIn" alignItems="Center">
+                    <Title text="24/7" class="llStatNumber"/>
+                    <Text text="Emergency Matching" class="llStatLabel"/>
+                </VBox>
+            </HBox>
+
+            <!-- 🛠️ Features Section -->
+            <VBox id="featuresSection" class="llFeaturesSection" alignItems="Center">
+                <Title text="Enterprise Platform Features" class="llSectionTitle sapUiSmallMarginBottom"/>
+                <Text text="Advanced features designed to streamline blood availability and save lives faster." class="llSectionSubtitle sapUiLargeMarginBottom"/>
+                
+                <HBox class="llFeaturesGrid" wrap="Wrap" justifyContent="Center" gap="2rem">
+                    <!-- Feature 1 -->
+                    <VBox class="llFeatureCard llAnimateIn">
+                        <core:Icon src="sap-icon://inventory" class="llFeatureIcon" color="#B71C1C"/>
+                        <Title text="Real-Time Inventory" level="H4" class="sapUiSmallMarginTopBottom"/>
+                        <Text text="Track available blood units categorized by group, hospital location, and expiration dates with precision." class="llTextCenter"/>
+                    </VBox>
+                    <!-- Feature 2 -->
+                    <VBox class="llFeatureCard llAnimateIn">
+                        <core:Icon src="sap-icon://alert" class="llFeatureIcon" color="#E65100"/>
+                        <Title text="Instant Dispatch" level="H4" class="sapUiSmallMarginTopBottom"/>
+                        <Text text="Fast-track urgent requests directly to nearby blood banks with real-time status updates and priority flags." class="llTextCenter"/>
+                    </VBox>
+                    <!-- Feature 3 -->
+                    <VBox class="llFeatureCard llAnimateIn">
+                        <core:Icon src="sap-icon://appointment-2" class="llFeatureIcon" color="#2E7D32"/>
+                        <Title text="Eligibility Tracker" level="H4" class="sapUiSmallMarginTopBottom"/>
+                        <Text text="Automatic 56-day gap verification for returning donors to ensure donor safety and compliance." class="llTextCenter"/>
+                    </VBox>
+                    <!-- Feature 4 -->
+                    <VBox class="llFeatureCard llAnimateIn">
+                        <core:Icon src="sap-icon://document" class="llFeatureIcon" color="#1565C0"/>
+                        <Title text="SmartForms Slips" level="H4" class="sapUiSmallMarginTopBottom"/>
+                        <Text text="Instantly generate formal PDF donation certificates and official hospital emergency request release slips." class="llTextCenter"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- 💬 Testimonials Section -->
+            <VBox id="testimonialsSection" class="llTestimonialsSection" alignItems="Center">
+                <Title text="What Our Network Says" class="llSectionTitle sapUiSmallMarginBottom"/>
+                <Text text="Read stories from voluntary blood donors and medical coordinators using LifeLink." class="llSectionSubtitle sapUiLargeMarginBottom"/>
+                
+                <HBox class="llTestimonialsGrid" wrap="Wrap" justifyContent="Center" gap="2rem">
+                    <!-- Testimonial 1 -->
+                    <VBox class="llGlassCard llTestimonialCard llAnimateIn">
+                        <HBox class="sapUiSmallMarginBottom" alignItems="Center">
+                            <Avatar initials="JD" displaySize="M" class="sapUiSmallMarginEnd" backgroundColor="Accent3"/>
+                            <VBox>
+                                <Title text="Jane Doe" level="H4" class="llTextBold"/>
+                                <Text text="Voluntary O- Donor" class="textMuted"/>
+                            </VBox>
+                        </HBox>
+                        <Text text="&quot;LifeLink made it so easy to verify my next eligible donation date. The platform keeps track of everything, and I love getting my printable SmartForm certificates after donating!&quot;" class="llTestimonialQuote"/>
+                    </VBox>
+                    <!-- Testimonial 2 -->
+                    <VBox class="llGlassCard llTestimonialCard llAnimateIn">
+                        <HBox class="sapUiSmallMarginBottom" alignItems="Center">
+                            <Avatar initials="MH" displaySize="M" class="sapUiSmallMarginEnd" backgroundColor="Accent6"/>
+                            <VBox>
+                                <Title text="Dr. Marcus Harris" level="H4" class="llTextBold"/>
+                                <Text text="Mercy Hospital ER Lead" class="textMuted"/>
+                            </VBox>
+                        </HBox>
+                        <Text text="&quot;During emergency blood shortages, seconds save lives. LifeLink's real-time emergency dispatch matches requests instantly to regional depots. The response is almost immediate.&quot;" class="llTestimonialQuote"/>
+                    </VBox>
+                    <!-- Testimonial 3 -->
+                    <VBox class="llGlassCard llTestimonialCard llAnimateIn">
+                        <HBox class="sapUiSmallMarginBottom" alignItems="Center">
+                            <Avatar initials="AL" displaySize="M" class="sapUiSmallMarginEnd" backgroundColor="Accent1"/>
+                            <VBox>
+                                <Title text="Alice Low" level="H4" class="llTextBold"/>
+                                <Text text="Red Cross Depot Operator" class="textMuted"/>
+                            </VBox>
+                        </HBox>
+                        <Text text="&quot;Keeping track of expiration dates on hundreds of blood units is complex. The platform's real-time inventory alerts keep us compliant and minimize waste. Highly recommended.&quot;" class="llTestimonialQuote"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- 🩸 Call-To-Action Banner -->
+            <VBox class="llCtaBanner" alignItems="Center" justifyContent="Center">
+                <Title text="Ready to make a life-saving impact?" class="llCtaTitle sapUiSmallMarginBottom"/>
+                <Text text="Join thousands of volunteer donors and medical providers connected on LifeLink." class="llCtaSubtitle sapUiMediumMarginBottom"/>
+                <HBox gap="1rem">
+                    <Button text="Become a Donor" type="Reject" press="onNavToSignUp" class="llBtnLarge"/>
+                    <Button text="Explore Dashboard" type="Emphasized" press="onNavToDashboard" class="llBtnLargeOutlined"/>
+                </HBox>
+            </VBox>
+
+            <!-- 🐾 Footer -->
+            <VBox class="llLandingFooter" alignItems="Center" justifyContent="Center">
+                <Text text="© 2026 LifeLink Healthcare Network. Built on SAP Fiori and S/4HANA Systems." class="llFooterText"/>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

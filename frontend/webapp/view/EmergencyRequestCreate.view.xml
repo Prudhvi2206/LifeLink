@@ -1,0 +1,100 @@
+<mvc:View
+    controllerName="lifelink.controller.EmergencyRequestCreate"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+
+    <Page id="requestCreatePage" title="{i18n>requestCreateTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="llForm sapUiResponsiveMargin">
+                <MessageStrip id="reqFormMessage" text="" type="Error" showIcon="true" visible="false" class="sapUiSmallMarginBottom"/>
+
+                <form:SimpleForm id="requestForm"
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+                    emptySpanXL="4" emptySpanL="4" emptySpanM="0" emptySpanS="0"
+                    columnsXL="1" columnsL="1" columnsM="1" columnsS="1">
+
+                    <!-- Hospital Information -->
+                    <form:toolbar>
+                        <Toolbar>
+                            <Title text="Hospital Information" level="H4"/>
+                        </Toolbar>
+                    </form:toolbar>
+
+                    <Label text="{i18n>requestHospital}" required="true"/>
+                    <Select id="selectHospital" selectedKey="{newRequest>/HospitalId}" forceSelection="false"
+                            items="{/HospitalSet}">
+                        <core:Item key="" text="-- Select Hospital --"/>
+                        <core:Item key="{HospitalId}" text="{Name}"/>
+                    </Select>
+
+                    <Label text="{i18n>requestContactPerson}" required="true"/>
+                    <Input id="inputContactPerson" value="{newRequest>/ContactPerson}" placeholder="Doctor / Contact person name" maxLength="80"/>
+
+                    <Label text="{i18n>requestContactPhone}" required="true"/>
+                    <Input id="inputContactPhone" value="{newRequest>/ContactPhone}" type="Tel" placeholder="Contact phone number" maxLength="15"/>
+
+                    <!-- Patient & Blood Details -->
+                    <form:toolbar>
+                        <Toolbar>
+                            <Title text="Patient &amp; Blood Details" level="H4"/>
+                        </Toolbar>
+                    </form:toolbar>
+
+                    <Label text="{i18n>requestPatientName}" required="true"/>
+                    <Input id="inputPatientName" value="{newRequest>/PatientName}" placeholder="Patient full name" maxLength="80"/>
+
+                    <Label text="{i18n>requestBloodGroup}" required="true"/>
+                    <Select id="selectReqBloodGroup" selectedKey="{newRequest>/BloodGroup}" forceSelection="false">
+                        <core:Item key="" text="-- Select Blood Group --"/>
+                        <core:Item key="A+" text="A Positive (A+)"/>
+                        <core:Item key="A-" text="A Negative (A-)"/>
+                        <core:Item key="B+" text="B Positive (B+)"/>
+                        <core:Item key="B-" text="B Negative (B-)"/>
+                        <core:Item key="AB+" text="AB Positive (AB+)"/>
+                        <core:Item key="AB-" text="AB Negative (AB-)"/>
+                        <core:Item key="O+" text="O Positive (O+)"/>
+                        <core:Item key="O-" text="O Negative (O-)"/>
+                    </Select>
+
+                    <Label text="{i18n>requestUnitsNeeded}" required="true"/>
+                    <StepInput id="inputUnitsNeeded" value="{newRequest>/UnitsNeeded}" min="1" max="20" step="1"/>
+
+                    <Label text="{i18n>requestUrgency}" required="true"/>
+                    <Select id="selectUrgency" selectedKey="{newRequest>/Urgency}">
+                        <core:Item key="Critical" text="🔴 Critical - Life Threatening"/>
+                        <core:Item key="High" text="🟠 High - Urgent Need"/>
+                        <core:Item key="Normal" text="🟡 Normal - Scheduled"/>
+                        <core:Item key="Low" text="🟢 Low - Non-urgent"/>
+                    </Select>
+
+                    <!-- Additional Details -->
+                    <form:toolbar>
+                        <Toolbar>
+                            <Title text="Additional Details" level="H4"/>
+                        </Toolbar>
+                    </form:toolbar>
+
+                    <Label text="{i18n>requestReason}" required="true"/>
+                    <TextArea id="taReason" value="{newRequest>/Reason}" rows="3" placeholder="Reason for blood request" maxLength="255"/>
+
+                    <Label text="{i18n>requestNotes}"/>
+                    <TextArea id="taNotes" value="{newRequest>/Notes}" rows="2" placeholder="Additional notes (optional)" maxLength="255"/>
+
+                </form:SimpleForm>
+            </VBox>
+        </content>
+
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Button id="btnSubmitRequest" text="{i18n>requestCreate}" type="Emphasized" icon="sap-icon://action" press="onSubmitRequest"/>
+                <Button id="btnCancelRequest" text="{i18n>btnCancel}" press="onNavBack"/>
+            </Toolbar>
+        </footer>
+    </Page>
+
+</mvc:View>

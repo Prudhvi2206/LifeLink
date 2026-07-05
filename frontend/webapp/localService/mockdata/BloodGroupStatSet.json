@@ -1,0 +1,10 @@
+[
+  { "BloodGroup": "O+", "TotalUnits": 57, "DonorCount": 3 },
+  { "BloodGroup": "A+", "TotalUnits": 30, "DonorCount": 2 },
+  { "BloodGroup": "B+", "TotalUnits": 35, "DonorCount": 2 },
+  { "BloodGroup": "AB+", "TotalUnits": 18, "DonorCount": 2 },
+  { "BloodGroup": "O-", "TotalUnits": 6, "DonorCount": 2 },
+  { "BloodGroup": "A-", "TotalUnits": 9, "DonorCount": 2 },
+  { "BloodGroup": "B-", "TotalUnits": 4, "DonorCount": 1 },
+  { "BloodGroup": "AB-", "TotalUnits": 2, "DonorCount": 1 }
+]

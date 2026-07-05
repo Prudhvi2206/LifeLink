@@ -1,0 +1,47 @@
+<mvc:View
+    controllerName="lifelink.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    displayBlock="true">
+
+    <tnt:ToolPage id="toolPage" class="llToolPage">
+        <tnt:header>
+            <tnt:ToolHeader visible="{= !${appView>/isPublicPage} }">
+                <Button
+                    id="sideNavigationToggleButton"
+                    icon="sap-icon://menu2"
+                    press="onToggleSideNav"
+                    type="Transparent"/>
+                <Title text="{i18n>appTitle}" level="H4">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow"/>
+                    </layoutData>
+                </Title>
+                <ToolbarSpacer/>
+                <Button icon="sap-icon://bell" type="Transparent" tooltip="Notifications" press="onNotifications"/>
+                <Button icon="sap-icon://person-placeholder" type="Transparent" tooltip="User Profile" press="onUserProfile"/>
+            </tnt:ToolHeader>
+        </tnt:header>
+
+        <tnt:sideContent>
+            <tnt:SideNavigation id="sideNavigation" selectedKey="dashboard" itemSelect="onNavItemSelect" visible="{= !${appView>/isPublicPage} }">
+                <tnt:NavigationList>
+                    <tnt:NavigationListItem text="{i18n>navDashboard}" icon="sap-icon://home" key="dashboard"/>
+                    <tnt:NavigationListItem text="{i18n>navDonors}" icon="sap-icon://group" key="donorList"/>
+                    <tnt:NavigationListItem text="{i18n>navInventory}" icon="sap-icon://inventory" key="bloodInventory"/>
+                    <tnt:NavigationListItem text="{i18n>navRequests}" icon="sap-icon://alert" key="emergencyRequests"/>
+                    <tnt:NavigationListItem text="{i18n>navHistory}" icon="sap-icon://history" key="donationHistory"/>
+                    <tnt:NavigationListItem text="{i18n>navReports}" icon="sap-icon://bar-chart" key="reports"/>
+                    <tnt:NavigationListItem text="{i18n>navSearch}" icon="sap-icon://search" key="bloodSearch"/>
+                    <tnt:NavigationListItem text="{i18n>navSmartForms}" icon="sap-icon://document" key="smartFormDownload"/>
+                </tnt:NavigationList>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+
+        <tnt:mainContents>
+            <NavContainer id="appNavContainer"/>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+
+</mvc:View>

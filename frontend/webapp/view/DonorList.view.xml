@@ -1,0 +1,106 @@
+<mvc:View
+    controllerName="lifelink.controller.DonorList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page id="donorListPage" title="{i18n>donorTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <headerContent>
+            <Button id="btnRefreshDonors" icon="sap-icon://refresh" press="onRefresh" tooltip="{i18n>btnRefresh}"/>
+        </headerContent>
+
+        <subHeader>
+            <Toolbar>
+                <SearchField id="donorSearchField" placeholder="{i18n>donorSearch}" liveChange="onSearch" width="40%"/>
+                <ToolbarSpacer/>
+                <Select id="filterBloodGroup" change="onFilterBloodGroup" selectedKey="ALL">
+                    <core:Item key="ALL" text="All Blood Groups"/>
+                    <core:Item key="A+" text="A+"/>
+                    <core:Item key="A-" text="A-"/>
+                    <core:Item key="B+" text="B+"/>
+                    <core:Item key="B-" text="B-"/>
+                    <core:Item key="AB+" text="AB+"/>
+                    <core:Item key="AB-" text="AB-"/>
+                    <core:Item key="O+" text="O+"/>
+                    <core:Item key="O-" text="O-"/>
+                </Select>
+                <Select id="filterStatus" change="onFilterStatus" selectedKey="ALL">
+                    <core:Item key="ALL" text="All Status"/>
+                    <core:Item key="Active" text="Active"/>
+                    <core:Item key="Inactive" text="Inactive"/>
+                </Select>
+                <ToolbarSeparator/>
+                <Button id="btnAddDonor" text="{i18n>donorAdd}" icon="sap-icon://add-employee" type="Emphasized" press="onAddDonor"/>
+            </Toolbar>
+        </subHeader>
+
+        <content>
+            <Table id="donorTable"
+                   items="{/DonorSet}"
+                   growing="true"
+                   growingThreshold="20"
+                   growingScrollToLoad="true"
+                   mode="SingleSelectMaster"
+                   selectionChange="onDonorSelect"
+                   class="llTable"
+                   sticky="ColumnHeaders,HeaderToolbar">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="{i18n>donorListTitle}" level="H4"/>
+                        <ToolbarSpacer/>
+                        <OverflowToolbarButton icon="sap-icon://edit" text="{i18n>donorEdit}" press="onEditDonor" enabled="{viewModel>/hasSelection}"/>
+                        <OverflowToolbarButton icon="sap-icon://delete" text="{i18n>donorDelete}" press="onDeleteDonor" type="Reject" enabled="{viewModel>/hasSelection}"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column width="8%"><Text text="{i18n>donorId}"/></Column>
+                    <Column width="18%" minScreenWidth="Small" demandPopin="true"><Text text="{i18n>donorFullName}"/></Column>
+                    <Column width="10%"><Text text="{i18n>donorBloodGroup}"/></Column>
+                    <Column width="12%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>donorPhone}"/></Column>
+                    <Column width="12%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>donorCity}"/></Column>
+                    <Column width="12%" minScreenWidth="Desktop" demandPopin="true"><Text text="{i18n>donorLastDonation}"/></Column>
+                    <Column width="10%"><Text text="{i18n>donorEligibility}"/></Column>
+                    <Column width="8%"><Text text="{i18n>donorStatus}"/></Column>
+                    <Column width="10%"><Text text="Actions"/></Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Navigation" press="onDonorPress">
+                        <ObjectIdentifier title="{DonorId}"/>
+                        <ObjectIdentifier
+                            title="{ parts: ['FirstName', 'LastName'], formatter: '.formatter.formatFullName' }"
+                            text="{Email}"/>
+                        <ObjectStatus
+                            text="{BloodGroup}"
+                            state="{ path: 'BloodGroup', formatter: '.formatter.formatBloodGroupHighlight' }"
+                            icon="sap-icon://heart"/>
+                        <Text text="{Phone}"/>
+                        <Text text="{City}"/>
+                        <Text text="{ path: 'LastDonationDate', formatter: '.formatter.formatDate' }"/>
+                        <ObjectStatus
+                            text="{ path: 'LastDonationDate', formatter: '.formatter.formatEligibilityText' }"
+                            state="{ path: 'LastDonationDate', formatter: '.formatter.formatEligibilityState' }"/>
+                        <ObjectStatus
+                            text="{Status}"
+                            state="{ path: 'Status', formatter: '.formatter.formatDonorStatusState' }"/>
+                        <HBox>
+                            <Button icon="sap-icon://edit" type="Transparent" press="onEditDonorRow" tooltip="Edit"/>
+                            <Button icon="sap-icon://delete" type="Transparent" press="onDeleteDonorRow" tooltip="Delete"/>
+                        </HBox>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Label text="Total Donors: "/>
+                <ObjectNumber id="donorCount" number="{viewModel>/donorCount}" emphasized="true"/>
+            </Toolbar>
+        </footer>
+    </Page>
+
+</mvc:View>

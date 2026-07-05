@@ -1,0 +1,116 @@
+<mvc:View
+    controllerName="lifelink.controller.EmergencyRequests"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page id="requestsPage" title="{i18n>requestTitle}" showNavButton="true" navButtonPress="onNavBack">
+        <headerContent>
+            <Button icon="sap-icon://refresh" press="onRefresh" tooltip="{i18n>btnRefresh}"/>
+        </headerContent>
+
+        <subHeader>
+            <Toolbar>
+                <SearchField id="requestSearch" placeholder="{i18n>requestSearch}" liveChange="onSearch" width="35%"/>
+                <ToolbarSpacer/>
+                <Select id="filterReqStatus" change="onFilterStatus" selectedKey="ALL">
+                    <core:Item key="ALL" text="All Status"/>
+                    <core:Item key="Pending" text="Pending"/>
+                    <core:Item key="Approved" text="Approved"/>
+                    <core:Item key="Rejected" text="Rejected"/>
+                    <core:Item key="Completed" text="Completed"/>
+                </Select>
+                <Select id="filterUrgency" change="onFilterUrgency" selectedKey="ALL">
+                    <core:Item key="ALL" text="All Urgency"/>
+                    <core:Item key="Critical" text="Critical"/>
+                    <core:Item key="High" text="High"/>
+                    <core:Item key="Normal" text="Normal"/>
+                    <core:Item key="Low" text="Low"/>
+                </Select>
+                <ToolbarSeparator/>
+                <Button text="{i18n>requestCreate}" icon="sap-icon://add" type="Emphasized" press="onCreateRequest"/>
+            </Toolbar>
+        </subHeader>
+
+        <content>
+            <!-- Critical Alert -->
+            <MessageStrip id="criticalAlert" text="🚨 3 Critical emergency requests are pending approval!" type="Error"
+                          showIcon="true" showCloseButton="true" visible="{viewModel>/hasCritical}"
+                          class="sapUiSmallMarginBottom sapUiSmallMarginBeginEnd"/>
+
+            <IconTabBar id="requestTabs" select="onTabSelect" expandable="false" class="sapUiSmallMarginBeginEnd">
+                <items>
+                    <IconTabFilter text="All" count="{viewModel>/allCount}" key="ALL" icon="sap-icon://list"/>
+                    <IconTabSeparator/>
+                    <IconTabFilter text="Pending" count="{viewModel>/pendingCount}" key="Pending"
+                                   icon="sap-icon://pending" iconColor="Critical"/>
+                    <IconTabFilter text="Approved" count="{viewModel>/approvedCount}" key="Approved"
+                                   icon="sap-icon://accept" iconColor="Positive"/>
+                    <IconTabFilter text="Rejected" count="{viewModel>/rejectedCount}" key="Rejected"
+                                   icon="sap-icon://decline" iconColor="Negative"/>
+                    <IconTabFilter text="Completed" count="{viewModel>/completedCount}" key="Completed"
+                                   icon="sap-icon://complete" iconColor="Neutral"/>
+                </items>
+            </IconTabBar>
+
+            <Table id="requestTable"
+                   items="{/EmergencyRequestSet}"
+                   growing="true"
+                   growingThreshold="20"
+                   class="llTable sapUiSmallMarginTop"
+                   mode="SingleSelectMaster"
+                   sticky="ColumnHeaders,HeaderToolbar">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="{i18n>requestListTitle}" level="H4"/>
+                        <ToolbarSpacer/>
+                        <OverflowToolbarButton icon="sap-icon://accept" text="{i18n>requestApprove}" press="onApproveRequest" type="Accept"/>
+                        <OverflowToolbarButton icon="sap-icon://decline" text="{i18n>requestReject}" press="onRejectRequest" type="Reject"/>
+                        <OverflowToolbarButton icon="sap-icon://complete" text="{i18n>requestComplete}" press="onCompleteRequest"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column width="8%"><Text text="{i18n>requestId}"/></Column>
+                    <Column width="14%"><Text text="{i18n>requestPatientName}"/></Column>
+                    <Column width="14%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>requestHospital}"/></Column>
+                    <Column width="8%"><Text text="{i18n>requestBloodGroup}"/></Column>
+                    <Column width="8%"><Text text="{i18n>requestUnitsNeeded}"/></Column>
+                    <Column width="10%"><Text text="{i18n>requestUrgency}"/></Column>
+                    <Column width="12%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>requestDate}"/></Column>
+                    <Column width="10%"><Text text="{i18n>requestContactPerson}"/></Column>
+                    <Column width="8%"><Text text="{i18n>requestStatus}"/></Column>
+                    <Column width="8%"><Text text="Actions"/></Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Active" press="onRequestPress"
+                                    highlight="{ path: 'Status', formatter: '.formatter.formatStatusState' }">
+                        <ObjectIdentifier title="{RequestId}"/>
+                        <ObjectIdentifier title="{PatientName}"/>
+                        <Text text="{HospitalName}"/>
+                        <ObjectStatus text="{BloodGroup}" state="Warning" icon="sap-icon://heart"/>
+                        <ObjectNumber number="{UnitsNeeded}" unit="units" emphasized="true"/>
+                        <ObjectStatus
+                            text="{Urgency}"
+                            state="{ path: 'Urgency', formatter: '.formatter.formatUrgencyState' }"/>
+                        <Text text="{ path: 'RequestDate', formatter: '.formatter.formatDate' }"/>
+                        <Text text="{ContactPerson}"/>
+                        <ObjectStatus
+                            text="{ path: 'Status', formatter: '.formatter.formatStatusText' }"
+                            state="{ path: 'Status', formatter: '.formatter.formatStatusState' }"
+                            icon="{ path: 'Status', formatter: '.formatter.formatStatusIcon' }"/>
+                        <HBox>
+                            <Button icon="sap-icon://accept" type="Transparent" press="onApproveRow" tooltip="Approve"
+                                    visible="{= ${Status} === 'Pending'}"/>
+                            <Button icon="sap-icon://decline" type="Transparent" press="onRejectRow" tooltip="Reject"
+                                    visible="{= ${Status} === 'Pending'}"/>
+                        </HBox>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+
+</mvc:View>

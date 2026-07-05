@@ -1,0 +1,26 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Toolbar>
+        <SearchField placeholder="Search..." liveChange="onSearch" width="30%"/>
+        <ToolbarSpacer/>
+        <Select change="onFilterBloodGroup" selectedKey="ALL">
+            <core:Item key="ALL" text="All Blood Groups"/>
+            <core:Item key="A+" text="A+"/>
+            <core:Item key="A-" text="A-"/>
+            <core:Item key="B+" text="B+"/>
+            <core:Item key="B-" text="B-"/>
+            <core:Item key="AB+" text="AB+"/>
+            <core:Item key="AB-" text="AB-"/>
+            <core:Item key="O+" text="O+"/>
+            <core:Item key="O-" text="O-"/>
+        </Select>
+        <Select change="onFilterStatus" selectedKey="ALL">
+            <core:Item key="ALL" text="All Status"/>
+            <core:Item key="Active" text="Active"/>
+            <core:Item key="Inactive" text="Inactive"/>
+        </Select>
+    </Toolbar>
+
+</core:FragmentDefinition>

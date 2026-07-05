@@ -1,0 +1,66 @@
+<mvc:View
+    controllerName="lifelink.controller.SignIn"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page id="signInPage" showHeader="false" enableScrolling="true" class="llPublicPage llAuthPage">
+        <content>
+            <!-- Back to Home Floating Button -->
+            <Button
+                icon="sap-icon://nav-back"
+                text="Back to Home"
+                press="onNavToHome"
+                class="llFloatingBackBtn"
+                type="Transparent"/>
+
+            <VBox class="llAuthContainer" alignItems="Center" justifyContent="Center">
+                <VBox class="llAuthCard llAnimateIn">
+                    <!-- Brand Header -->
+                    <VBox class="llAuthHeader" alignItems="Center">
+                        <core:Icon src="sap-icon://heart" size="3rem" color="#B71C1C" class="sapUiSmallMarginBottom"/>
+                        <Title text="Welcome to LifeLink" level="H2" class="llTextBold"/>
+                        <Text text="Sign in to manage blood banks &amp; requests" class="sapUiTinyMarginTop"/>
+                    </VBox>
+
+                    <!-- Form Fields -->
+                    <VBox class="llAuthForm sapUiMediumMarginTop" width="100%">
+                        <Label text="Username or Email" class="llAuthLabel" labelFor="usernameInput"/>
+                        <Input
+                            id="usernameInput"
+                            placeholder="Enter username (try: admin)"
+                            class="llAuthInput sapUiSmallMarginBottom"
+                            submit="onSignIn"/>
+
+                        <Label text="Password" class="llAuthLabel" labelFor="passwordInput"/>
+                        <Input
+                            id="passwordInput"
+                            type="Password"
+                            placeholder="Enter password (try: admin)"
+                            class="llAuthInput sapUiSmallMarginBottom"
+                            submit="onSignIn"/>
+
+                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom">
+                            <CheckBox text="Remember me" class="llAuthCheckbox"/>
+                            <Link text="Forgot Password?" class="llAuthLink"/>
+                        </HBox>
+
+                        <Button
+                            text="Sign In"
+                            type="Reject"
+                            press="onSignIn"
+                            class="llBtnLarge llBtnFullWidth sapUiMediumMarginTop"/>
+                    </VBox>
+
+                    <!-- Footer Link -->
+                    <VBox class="llAuthFooter sapUiMediumMarginTop" alignItems="Center">
+                        <HBox gap="0.25rem">
+                            <Text text="Don't have an account?"/>
+                            <Link text="Register here" press="onNavToSignUp" class="llTextBold llTextPrimary"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
